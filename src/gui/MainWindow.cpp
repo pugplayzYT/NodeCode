@@ -1,15 +1,15 @@
 #include "MainWindow.h"
-#include "gui/StyleSheet.h"
+#include "compiler/CompilerBackend.h"
+#include "core/CodeGenerator.h"
+#include "core/Serialization.h"
 #include "gui/NodeGraphView.h"
-#include "gui/scene/NodeGraphScene.h"
+#include "gui/StyleSheet.h"
 #include "gui/panels/CodePreviewPanel.h"
 #include "gui/panels/ConsolePanel.h"
 #include "gui/panels/NodeLibraryPanel.h"
 #include "gui/panels/VariablesPanel.h"
-#include "compiler/CompilerBackend.h"
+#include "gui/scene/NodeGraphScene.h"
 #include "plugin/PluginManager.h"
-#include "core/CodeGenerator.h"
-#include "core/Serialization.h"
 #include <QAction>
 #include <QApplication>
 #include <QFileDialog>
@@ -61,16 +61,15 @@ MainWindow::~MainWindow() { delete m_project; }
 void MainWindow::setupMenuBar() {
   auto *fileMenu = menuBar()->addMenu("&File");
 
-  auto *actNew = fileMenu->addAction("New Project", this,
-                                     &MainWindow::onNewProject);
+  auto *actNew =
+      fileMenu->addAction("New Project", this, &MainWindow::onNewProject);
   actNew->setShortcut(QKeySequence::New);
 
   auto *actOpen =
       fileMenu->addAction("Open...", this, &MainWindow::onOpenProject);
   actOpen->setShortcut(QKeySequence::Open);
 
-  auto *actSave =
-      fileMenu->addAction("Save", this, &MainWindow::onSaveProject);
+  auto *actSave = fileMenu->addAction("Save", this, &MainWindow::onSaveProject);
   actSave->setShortcut(QKeySequence::Save);
 
   fileMenu->addAction("Save As...", this, &MainWindow::onSaveProjectAs);
@@ -107,8 +106,8 @@ void MainWindow::setupMenuBar() {
   auto *buildMenu = menuBar()->addMenu("&Build");
   buildMenu->addAction("Export Code...", this, &MainWindow::onExportCode);
 
-  auto *actRun =
-      buildMenu->addAction("Compile && Run", this, &MainWindow::onCompileAndRun);
+  auto *actRun = buildMenu->addAction("Compile && Run", this,
+                                      &MainWindow::onCompileAndRun);
   actRun->setShortcut(QKeySequence(Qt::Key_F5));
 
   auto *actStop =
@@ -116,12 +115,13 @@ void MainWindow::setupMenuBar() {
   actStop->setShortcut(QKeySequence(Qt::Key_F6));
 
   auto *toolMenu = menuBar()->addMenu("&Tools");
-  toolMenu->addAction("Select Mode", [this]() {
-    m_scene->setToolMode(ToolMode::Select);
-  });
-  toolMenu->addAction("Knife Mode", [this]() {
-    m_scene->setToolMode(ToolMode::Knife);
-  });
+  toolMenu->addAction("Select Mode",
+                      [this]() { m_scene->setToolMode(ToolMode::Select); });
+  toolMenu->addAction("Knife Mode",
+                      [this]() { m_scene->setToolMode(ToolMode::Knife); });
+
+  auto *helpMenu = menuBar()->addMenu("&Help");
+  helpMenu->addAction("About Qt", qApp, &QApplication::aboutQt);
 }
 
 void MainWindow::setupToolBar() {
@@ -198,15 +198,18 @@ void MainWindow::setupConnections() {
   // Node library → add node to scene
   connect(m_nodeLibrary, &NodeLibraryPanel::nodeRequested, this,
           [this](const NodeDef &def, const QPointF &pos) {
-            QPointF scenePos = pos.isNull()
-                                   ? m_view->mapToScene(m_view->viewport()->rect().center())
-                                   : pos;
-            Node *node = m_project->graph()->addNode(def.type, def.name, scenePos);
+            QPointF scenePos =
+                pos.isNull()
+                    ? m_view->mapToScene(m_view->viewport()->rect().center())
+                    : pos;
+            Node *node =
+                m_project->graph()->addNode(def.type, def.name, scenePos);
             node->setLanguage(def.language);
             for (const auto &in : def.inputs)
               node->addInput(in.name, in.type, in.defaultValue, in.allowInline);
             for (const auto &out : def.outputs)
-              node->addOutput(out.name, out.type, out.defaultValue, out.allowInline);
+              node->addOutput(out.name, out.type, out.defaultValue,
+                              out.allowInline);
             node->setHasValue(def.hasValue);
             node->setValue(def.value);
             node->setCodeTemplate(def.code);
@@ -229,13 +232,12 @@ void MainWindow::setupConnections() {
           &ConsolePanel::appendOutput);
   connect(m_compiler, &CompilerBackend::errorReady, m_console,
           &ConsolePanel::appendError);
-  connect(m_compiler, &CompilerBackend::finished, this,
-          [this](int exitCode) {
-            m_console->appendOutput(
-                exitCode == 0 ? "\n--- Finished successfully ---"
-                              : "\n--- Exited with code " +
-                                    QString::number(exitCode) + " ---");
-          });
+  connect(m_compiler, &CompilerBackend::finished, this, [this](int exitCode) {
+    m_console->appendOutput(exitCode == 0
+                                ? "\n--- Finished successfully ---"
+                                : "\n--- Exited with code " +
+                                      QString::number(exitCode) + " ---");
+  });
 
   // Graph changed → update links
   connect(m_project->graph(), &NodeGraph::graphChanged, m_scene,
@@ -258,7 +260,8 @@ void MainWindow::spawnDefaultNodes() {
   QString endType = lang + ".End";
 
   auto spawnDef = [&](const QString &type, const QPointF &pos) {
-    if (!defs.contains(type)) return;
+    if (!defs.contains(type))
+      return;
     const auto &def = defs[type];
     Node *node = m_project->graph()->addNode(def.type, def.name, pos);
     node->setLanguage(def.language);
@@ -325,8 +328,7 @@ void MainWindow::onExportCode() {
     ext = "js";
 
   QString filename = QFileDialog::getSaveFileName(
-      this, "Export Code", "",
-      "Source Files (*." + ext + ");;All Files (*)");
+      this, "Export Code", "", "Source Files (*." + ext + ");;All Files (*)");
   if (filename.isEmpty())
     return;
 
@@ -347,16 +349,15 @@ void MainWindow::onCompileAndRun() {
 void MainWindow::onStopExecution() { m_compiler->stop(); }
 
 void MainWindow::onLoadDefs() {
-  QString filename = QFileDialog::getOpenFileName(
-      this, "Load Node Definitions", "",
-      "Node Files (*.node *.json);;All Files (*)");
+  QString filename =
+      QFileDialog::getOpenFileName(this, "Load Node Definitions", "",
+                                   "Node Files (*.node *.json);;All Files (*)");
   if (filename.isEmpty())
     return;
   if (m_project->loadNodeDefinitions(filename)) {
     m_nodeLibrary->refresh();
   } else {
-    QMessageBox::warning(this, "Error",
-                         "Failed to load node definitions.");
+    QMessageBox::warning(this, "Error", "Failed to load node definitions.");
   }
 }
 

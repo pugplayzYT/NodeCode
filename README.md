@@ -64,3 +64,6 @@ Our CI/CD pipeline enforces passing tests before any branch can be merged into t
 
 ## License 📄
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+### Qt Licensing
+This application uses the [Qt Toolkit](https://www.qt.io/) (Core, Gui, Widgets) dynamically linked under the **LGPLv3** open-source license. Qt is a trademark of The Qt Company Ltd. This project is not affiliated with or endorsed by The Qt Company.
