@@ -1,5 +1,6 @@
 #include "Project.h"
 #include "Serialization.h"
+#include <QFile>
 #include <QSettings>
 #include <fstream>
 #include <nlohmann/json.hpp>
@@ -25,12 +26,12 @@ bool Project::loadNodeTree(const QString &filename) {
 }
 
 bool Project::loadNodeDefinitions(const QString &filename) {
-  std::ifstream file(filename.toStdString());
-  if (!file.is_open())
+  QFile file(filename);
+  if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
     return false;
   try {
-    nlohmann::json j;
-    file >> j;
+    QByteArray data = file.readAll();
+    nlohmann::json j = nlohmann::json::parse(data.toStdString());
     for (const auto &obj : j["nodes"]) {
       NodeDef def;
       def.type = QString::fromStdString(obj.value("type", ""));
@@ -55,7 +56,9 @@ bool Project::loadNodeDefinitions(const QString &filename) {
       def.language = QString::fromStdString(obj.value("language", ""));
       if (obj.contains("requires")) {
         for (auto &r : obj["requires"])
-          def.requires.append(QString::fromStdString(r));
+        def.
+          requires
+            .append(QString::fromStdString(r));
       }
       m_nodeDefs[def.type] = def;
     }
@@ -75,6 +78,7 @@ void Project::addRecentFile(const QString &path) {
   QStringList files = settings.value("recentFiles").toStringList();
   files.removeAll(path);
   files.prepend(path);
-  while (files.size() > 10) files.removeLast();
+  while (files.size() > 10)
+    files.removeLast();
   settings.setValue("recentFiles", files);
 }

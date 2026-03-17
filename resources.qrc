@@ -3,5 +3,8 @@
     <file>resources/knife.png</file>
     <file>resources/app_icon.png</file>
     <file>resources/box_select.png</file>
+    <file>nodes/builtins_cpp.node</file>
+    <file>nodes/builtins_javascript.node</file>
+    <file>nodes/builtins_python.node</file>
 </qresource>
 </RCC>
