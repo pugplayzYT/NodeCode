@@ -24,6 +24,8 @@ jobs:
       run: cmake -B build -S . -DBUILD_TESTING=ON
 
     - name: Build
+      env:
+        QT_QPA_PLATFORM: offscreen
       run: cmake --build build --config Release -j$(nproc)
 
     - name: Test

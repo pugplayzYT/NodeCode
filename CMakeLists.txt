@@ -132,5 +132,8 @@ if(BUILD_TESTING)
     )
 
     include(GoogleTest)
-    gtest_discover_tests(NodeCodeTests)
+    gtest_discover_tests(NodeCodeTests
+        DISCOVERY_EXTRA_ARGS "--gtest_list_tests"
+        PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen"
+    )
 endif()
