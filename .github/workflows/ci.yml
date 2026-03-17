@@ -5,6 +5,9 @@ on:
   pull_request:
     branches: [ "master" ]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,10 +36,45 @@ jobs:
       env:
         QT_QPA_PLATFORM: offscreen
       run: ctest --output-on-failure
-      
+
     - name: Upload Artifact
       if: github.ref == 'refs/heads/master'
       uses: actions/upload-artifact@v4
       with:
         name: NodeCode-Linux
         path: build/NodeCode
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Download Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: NodeCode-Linux
+        path: release/
+
+    - name: Package Release
+      run: |
+        chmod +x release/NodeCode
+        cd release && tar czf ../NodeCode-Linux.tar.gz NodeCode
+
+    - name: Generate Tag
+      id: tag
+      run: echo "tag=v$(date +'%Y.%m.%d')-${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ steps.tag.outputs.tag }}
+        name: NodeCode ${{ steps.tag.outputs.tag }}
+        body: |
+          Automated release from commit ${{ github.sha }}
+
+          **Changes:** ${{ github.event.head_commit.message }}
+        files: NodeCode-Linux.tar.gz
+        generate_release_notes: true
