@@ -387,12 +387,10 @@ void MainWindow::onLanguageChanged(const QString &lang) {
   }
 
   m_undoStack->clear();
-  m_view->setUpdatesEnabled(false);
   m_project->graph()->clear();
   m_project->setLanguage(lang);
   spawnDefaultNodes();
   m_nodeLibrary->refresh();
-  m_view->setUpdatesEnabled(true);
 }
 
 void MainWindow::updateTitle() {
