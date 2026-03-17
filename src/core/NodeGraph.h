@@ -9,13 +9,13 @@ class NodeGraph : public QObject {
 public:
   NodeGraph(QObject *parent = nullptr);
   Node *addNode(const QString &type, const QString &name, const QPointF &pos);
-  void removeNode(const QUuid &id);
+  void removeNode(const QUuid &id, bool emitGraphChanged = true);
   Node *getNode(const QUuid &id) const;
   const QMap<QUuid, Node *> &nodes() const { return m_nodes; }
 
   NodeLink *addLink(const QUuid &srcNode, const QUuid &srcPort,
                     const QUuid &tgtNode, const QUuid &tgtPort);
-  void removeLink(const QUuid &id);
+  void removeLink(const QUuid &id, bool emitGraphChanged = true);
   const QMap<QUuid, NodeLink *> &links() const { return m_links; }
 
   void clear();

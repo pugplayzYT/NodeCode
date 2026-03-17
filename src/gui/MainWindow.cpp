@@ -245,6 +245,7 @@ void MainWindow::setupConnections() {
 }
 
 void MainWindow::onNewProject() {
+  m_undoStack->clear();
   m_project->graph()->clear();
   m_project->setCurrentFilePath("");
   m_project->setLanguage("C++");
@@ -288,6 +289,7 @@ void MainWindow::onOpenProject() {
   if (filename.isEmpty())
     return;
 
+  m_undoStack->clear();
   m_project->graph()->clear();
   if (Serialization::loadJson(m_project, filename)) {
     m_project->setCurrentFilePath(filename);
@@ -380,14 +382,17 @@ void MainWindow::onLanguageChanged(const QString &lang) {
       QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
 
   if (result == QMessageBox::No) {
-    updateSidebarLanguages();
+    QTimer::singleShot(0, this, &MainWindow::updateSidebarLanguages);
     return;
   }
 
+  m_undoStack->clear();
+  m_view->setUpdatesEnabled(false);
   m_project->graph()->clear();
   m_project->setLanguage(lang);
   spawnDefaultNodes();
   m_nodeLibrary->refresh();
+  m_view->setUpdatesEnabled(true);
 }
 
 void MainWindow::updateTitle() {
@@ -417,6 +422,7 @@ void MainWindow::autoSave() {
 }
 
 void MainWindow::openRecentFile(const QString &path) {
+  m_undoStack->clear();
   m_project->graph()->clear();
   if (Serialization::loadJson(m_project, path)) {
     m_project->setCurrentFilePath(path);

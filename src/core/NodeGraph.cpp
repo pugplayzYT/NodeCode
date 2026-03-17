@@ -12,7 +12,7 @@ Node *NodeGraph::addNode(const QString &type, const QString &name,
   return node;
 }
 
-void NodeGraph::removeNode(const QUuid &id) {
+void NodeGraph::removeNode(const QUuid &id, bool emitGraphChanged) {
   if (m_nodes.contains(id)) {
     QList<QUuid> linksToRemove;
     for (auto *link : m_links) {
@@ -20,10 +20,11 @@ void NodeGraph::removeNode(const QUuid &id) {
         linksToRemove.append(link->id);
     }
     for (const auto &lid : linksToRemove)
-      removeLink(lid);
+      removeLink(lid, emitGraphChanged);
     Node *node = m_nodes.take(id);
     emit nodeRemoved(id);
-    emit graphChanged();
+    if (emitGraphChanged)
+      emit graphChanged();
     delete node;
   }
 }
@@ -42,11 +43,12 @@ NodeLink *NodeGraph::addLink(const QUuid &srcNode, const QUuid &srcPort,
   return link;
 }
 
-void NodeGraph::removeLink(const QUuid &id) {
+void NodeGraph::removeLink(const QUuid &id, bool emitGraphChanged) {
   if (m_links.contains(id)) {
     NodeLink *link = m_links.take(id);
     emit linkRemoved(id);
-    emit graphChanged();
+    if (emitGraphChanged)
+      emit graphChanged();
     delete link;
   }
 }
@@ -54,5 +56,6 @@ void NodeGraph::removeLink(const QUuid &id) {
 void NodeGraph::clear() {
   auto nodeIds = m_nodes.keys();
   for (const auto &id : nodeIds)
-    removeNode(id);
+    removeNode(id, false);
+  emit graphChanged();
 }
