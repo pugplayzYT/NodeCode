@@ -1,0 +1,3186 @@
+{
+  "nodes": [
+    {
+      "type": "JavaScript.Start",
+      "name": "Start",
+      "language": "JavaScript",
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "// Start of script\n{Next}"
+    },
+    {
+      "type": "JavaScript.Print",
+      "name": "Console Log",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "console.log({Value});\n{Next}"
+    },
+    {
+      "type": "JavaScript.ConsoleWarn",
+      "name": "Console Warn",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "console.warn({Value});\n{Next}"
+    },
+    {
+      "type": "JavaScript.ConsoleError",
+      "name": "Console Error",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "console.error({Value});\n{Next}"
+    },
+    {
+      "type": "JavaScript.ConsoleTable",
+      "name": "Console Table",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Data",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "console.table({Data});\n{Next}"
+    },
+    {
+      "type": "JavaScript.Alert",
+      "name": "Alert",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Message",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "alert({Message});\n{Next}"
+    },
+    {
+      "type": "JavaScript.Prompt",
+      "name": "Prompt",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Message",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "const {Out} = prompt({Message});\n{Next}"
+    },
+    {
+      "type": "JavaScript.If",
+      "name": "Branch (If)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Condition",
+          "type": "Boolean",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "True",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "False",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "if ({Condition}) {\n{True}\n} else {\n{False}\n}\n{Next}"
+    },
+    {
+      "type": "JavaScript.ForLoop",
+      "name": "For Loop",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Start",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "End",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Loop",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Index",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "for (let {Index} = {Start}; {Index} < {End}; {Index}++) {\n{Loop}\n}\n{Next}"
+    },
+    {
+      "type": "JavaScript.WhileLoop",
+      "name": "While Loop",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Condition",
+          "type": "Boolean",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Loop",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "while ({Condition}) {\n{Loop}\n}\n{Next}"
+    },
+    {
+      "type": "JavaScript.DoWhile",
+      "name": "Do-While Loop",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Condition",
+          "type": "Boolean",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Loop",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "do {\n{Loop}\n} while ({Condition});\n{Next}"
+    },
+    {
+      "type": "JavaScript.ForOf",
+      "name": "For...of",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Collection",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Item",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "for (const {Item} of {Collection}) {\n{Body}\n}\n{Next}"
+    },
+    {
+      "type": "JavaScript.ForIn",
+      "name": "For...in",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Object",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Key",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "for (const {Key} in {Object}) {\n{Body}\n}\n{Next}"
+    },
+    {
+      "type": "JavaScript.Switch",
+      "name": "Switch",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "switch ({Value}) {\n{Body}\n}\n{Next}"
+    },
+    {
+      "type": "JavaScript.Case",
+      "name": "Case",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "case {Value}:\n{Body}\n    break;\n{Next}"
+    },
+    {
+      "type": "JavaScript.Break",
+      "name": "Break",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [],
+      "code": "break;"
+    },
+    {
+      "type": "JavaScript.Continue",
+      "name": "Continue",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [],
+      "code": "continue;"
+    },
+    {
+      "type": "JavaScript.Return",
+      "name": "Return",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [],
+      "code": "return {Value};"
+    },
+    {
+      "type": "JavaScript.TryCatch",
+      "name": "Try / Catch",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Catch",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "try {\n{Body}\n} catch (err) {\n{Catch}\n}\n{Next}"
+    },
+    {
+      "type": "JavaScript.Throw",
+      "name": "Throw Error",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Message",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [],
+      "code": "throw new Error({Message});"
+    },
+    {
+      "type": "JavaScript.Variable.Set",
+      "name": "Set Variable",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "myVar",
+      "code": "let {VALUE} = {Value};\nlet {Out} = {VALUE};\n{Next}"
+    },
+    {
+      "type": "JavaScript.Variable.Const",
+      "name": "Set Const",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "myConst",
+      "code": "const {VALUE} = {Value};\nconst {Out} = {VALUE};\n{Next}"
+    },
+    {
+      "type": "JavaScript.Assign",
+      "name": "Assign (=)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Target",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Target} = {Value};\n{Next}"
+    },
+    {
+      "type": "JavaScript.Math.Add",
+      "name": "Add (+)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} + {B})"
+    },
+    {
+      "type": "JavaScript.Math.Subtract",
+      "name": "Subtract (-)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} - {B})"
+    },
+    {
+      "type": "JavaScript.Math.Multiply",
+      "name": "Multiply (*)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} * {B})"
+    },
+    {
+      "type": "JavaScript.Math.Divide",
+      "name": "Divide (/)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} / {B})"
+    },
+    {
+      "type": "JavaScript.Math.Modulo",
+      "name": "Modulo (%)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} % {B})"
+    },
+    {
+      "type": "JavaScript.Math.Power",
+      "name": "Power (**)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Base",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "Exp",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "({Base} ** {Exp})"
+    },
+    {
+      "type": "JavaScript.Math.Sqrt",
+      "name": "Square Root",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "Math.sqrt({Value})"
+    },
+    {
+      "type": "JavaScript.Math.Abs",
+      "name": "Absolute Value",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "Math.abs({Value})"
+    },
+    {
+      "type": "JavaScript.Math.Min",
+      "name": "Min",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "Math.min({A}, {B})"
+    },
+    {
+      "type": "JavaScript.Math.Max",
+      "name": "Max",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "Math.max({A}, {B})"
+    },
+    {
+      "type": "JavaScript.Math.Floor",
+      "name": "Floor",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "Math.floor({Value})"
+    },
+    {
+      "type": "JavaScript.Math.Ceil",
+      "name": "Ceil",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "Math.ceil({Value})"
+    },
+    {
+      "type": "JavaScript.Math.Round",
+      "name": "Round",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "Math.round({Value})"
+    },
+    {
+      "type": "JavaScript.Math.Random",
+      "name": "Random (0-1)",
+      "language": "JavaScript",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "Math.random()"
+    },
+    {
+      "type": "JavaScript.Math.RandomInt",
+      "name": "Random Int",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Min",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "Max",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "(Math.floor(Math.random() * ({Max} - {Min} + 1)) + {Min})"
+    },
+    {
+      "type": "JavaScript.Math.Sin",
+      "name": "Sin",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Radians",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "Math.sin({Radians})"
+    },
+    {
+      "type": "JavaScript.Math.Cos",
+      "name": "Cos",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Radians",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "Math.cos({Radians})"
+    },
+    {
+      "type": "JavaScript.Math.ParseInt",
+      "name": "Parse Int",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "parseInt({Str})"
+    },
+    {
+      "type": "JavaScript.Math.ParseFloat",
+      "name": "Parse Float",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "parseFloat({Str})"
+    },
+    {
+      "type": "JavaScript.Compare.Equal",
+      "name": "Equal (===)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} === {B})"
+    },
+    {
+      "type": "JavaScript.Compare.NotEqual",
+      "name": "Not Equal (!==)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} !== {B})"
+    },
+    {
+      "type": "JavaScript.Compare.Greater",
+      "name": "Greater Than (>)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} > {B})"
+    },
+    {
+      "type": "JavaScript.Compare.Less",
+      "name": "Less Than (<)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} < {B})"
+    },
+    {
+      "type": "JavaScript.Compare.GreaterEqual",
+      "name": "Greater or Equal (>=)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} >= {B})"
+    },
+    {
+      "type": "JavaScript.Compare.LessEqual",
+      "name": "Less or Equal (<=)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} <= {B})"
+    },
+    {
+      "type": "JavaScript.Logic.And",
+      "name": "AND (&&)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Boolean",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Boolean",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} && {B})"
+    },
+    {
+      "type": "JavaScript.Logic.Or",
+      "name": "OR (||)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Boolean",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Boolean",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} || {B})"
+    },
+    {
+      "type": "JavaScript.Logic.Not",
+      "name": "NOT (!)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Boolean",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "(!{Value})"
+    },
+    {
+      "type": "JavaScript.Logic.Ternary",
+      "name": "Ternary (? :)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Condition",
+          "type": "Boolean",
+          "allowInline": true
+        },
+        {
+          "name": "IfTrue",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "IfFalse",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "({Condition} ? {IfTrue} : {IfFalse})"
+    },
+    {
+      "type": "JavaScript.Logic.NullishCoalescing",
+      "name": "Nullish (??)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Default",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "({Value} ?? {Default})"
+    },
+    {
+      "type": "JavaScript.String.Concat",
+      "name": "String Concat (+)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} + {B})"
+    },
+    {
+      "type": "JavaScript.String.Template",
+      "name": "Template Literal",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Template",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "`{Template}`"
+    },
+    {
+      "type": "JavaScript.String.Length",
+      "name": "String Length",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "{Str}.length"
+    },
+    {
+      "type": "JavaScript.String.ToUpper",
+      "name": "To Upper",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "{Str}.toUpperCase()"
+    },
+    {
+      "type": "JavaScript.String.ToLower",
+      "name": "To Lower",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "{Str}.toLowerCase()"
+    },
+    {
+      "type": "JavaScript.String.Trim",
+      "name": "Trim",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "{Str}.trim()"
+    },
+    {
+      "type": "JavaScript.String.Split",
+      "name": "Split",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Delim",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "{Str}.split({Delim})"
+    },
+    {
+      "type": "JavaScript.String.Replace",
+      "name": "String Replace",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Old",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "New",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "{Str}.replaceAll({Old}, {New})"
+    },
+    {
+      "type": "JavaScript.String.Includes",
+      "name": "String Includes",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Query",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "{Str}.includes({Query})"
+    },
+    {
+      "type": "JavaScript.String.Slice",
+      "name": "String Slice",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Start",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "End",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "{Str}.slice({Start}, {End})"
+    },
+    {
+      "type": "JavaScript.String.StartsWith",
+      "name": "Starts With",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Prefix",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "{Str}.startsWith({Prefix})"
+    },
+    {
+      "type": "JavaScript.String.ToString",
+      "name": "To String",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "String({Value})"
+    },
+    {
+      "type": "JavaScript.Array.Create",
+      "name": "Create Array",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Arr",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "myArr",
+      "code": "let {VALUE} = [];\nlet {Arr} = {VALUE};\n{Next}"
+    },
+    {
+      "type": "JavaScript.Array.Push",
+      "name": "Array Push",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Arr",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Arr}.push({Value});\n{Next}"
+    },
+    {
+      "type": "JavaScript.Array.Pop",
+      "name": "Array Pop",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Arr",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "const {Out} = {Arr}.pop();\n{Next}"
+    },
+    {
+      "type": "JavaScript.Array.Shift",
+      "name": "Array Shift",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Arr",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "const {Out} = {Arr}.shift();\n{Next}"
+    },
+    {
+      "type": "JavaScript.Array.Unshift",
+      "name": "Array Unshift",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Arr",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Arr}.unshift({Value});\n{Next}"
+    },
+    {
+      "type": "JavaScript.Array.At",
+      "name": "Array Get [i]",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Arr",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Index",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "{Arr}[{Index}]"
+    },
+    {
+      "type": "JavaScript.Array.Length",
+      "name": "Array Length",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Arr",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "{Arr}.length"
+    },
+    {
+      "type": "JavaScript.Array.Map",
+      "name": "Array Map",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Arr",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Func",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "{Arr}.map({Func})"
+    },
+    {
+      "type": "JavaScript.Array.Filter",
+      "name": "Array Filter",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Arr",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Func",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "{Arr}.filter({Func})"
+    },
+    {
+      "type": "JavaScript.Array.Reduce",
+      "name": "Array Reduce",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Arr",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Func",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Init",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "{Arr}.reduce({Func}, {Init})"
+    },
+    {
+      "type": "JavaScript.Array.Find",
+      "name": "Array Find",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Arr",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Func",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "{Arr}.find({Func})"
+    },
+    {
+      "type": "JavaScript.Array.Sort",
+      "name": "Array Sort",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Arr",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Arr}.sort();\n{Next}"
+    },
+    {
+      "type": "JavaScript.Array.Reverse",
+      "name": "Array Reverse",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Arr",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Arr}.reverse();\n{Next}"
+    },
+    {
+      "type": "JavaScript.Array.Includes",
+      "name": "Array Includes",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Arr",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "{Arr}.includes({Value})"
+    },
+    {
+      "type": "JavaScript.Array.Join",
+      "name": "Array Join",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Arr",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Delim",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "{Arr}.join({Delim})"
+    },
+    {
+      "type": "JavaScript.Array.Slice",
+      "name": "Array Slice",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Arr",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Start",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "End",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "{Arr}.slice({Start}, {End})"
+    },
+    {
+      "type": "JavaScript.Array.Flat",
+      "name": "Array Flat",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Arr",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "{Arr}.flat()"
+    },
+    {
+      "type": "JavaScript.Array.ForEach",
+      "name": "Array ForEach",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Arr",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Arr}.forEach((item) => {\n{Body}\n});\n{Next}"
+    },
+    {
+      "type": "JavaScript.Object.Create",
+      "name": "Create Object",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Obj",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "myObj",
+      "code": "let {VALUE} = {};\nlet {Obj} = {VALUE};\n{Next}"
+    },
+    {
+      "type": "JavaScript.Object.Set",
+      "name": "Object Set Key",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Obj",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Key",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Obj}[{Key}] = {Value};\n{Next}"
+    },
+    {
+      "type": "JavaScript.Object.Get",
+      "name": "Object Get Key",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Obj",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Key",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "{Obj}[{Key}]"
+    },
+    {
+      "type": "JavaScript.Object.Keys",
+      "name": "Object Keys",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Obj",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "Object.keys({Obj})"
+    },
+    {
+      "type": "JavaScript.Object.Values",
+      "name": "Object Values",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Obj",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "Object.values({Obj})"
+    },
+    {
+      "type": "JavaScript.Object.Entries",
+      "name": "Object Entries",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Obj",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "Object.entries({Obj})"
+    },
+    {
+      "type": "JavaScript.Object.Spread",
+      "name": "Object Spread",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "({...{A}, ...{B}})"
+    },
+    {
+      "type": "JavaScript.JSON.Parse",
+      "name": "JSON Parse",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "JSON.parse({Str})"
+    },
+    {
+      "type": "JavaScript.JSON.Stringify",
+      "name": "JSON Stringify",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Obj",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "JSON.stringify({Obj}, null, 2)"
+    },
+    {
+      "type": "JavaScript.Function.Arrow",
+      "name": "Arrow Function",
+      "language": "JavaScript",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Func",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "const myFunc = () =>",
+      "code": "{VALUE} {\n{Body}\n};\nauto {Func} = {VALUE};\n"
+    },
+    {
+      "type": "JavaScript.Function.Async",
+      "name": "Async Function",
+      "language": "JavaScript",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "async function myFunc()",
+      "code": "{VALUE} {\n{Body}\n}\n"
+    },
+    {
+      "type": "JavaScript.Async.Await",
+      "name": "Await",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Promise",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "await {Promise}"
+    },
+    {
+      "type": "JavaScript.Async.SetTimeout",
+      "name": "setTimeout",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Ms",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "setTimeout(() => {\n{Body}\n}, {Ms});\n{Next}"
+    },
+    {
+      "type": "JavaScript.Async.SetInterval",
+      "name": "setInterval",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Ms",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Timer",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "const {Timer} = setInterval(() => {\n{Body}\n}, {Ms});\n{Next}"
+    },
+    {
+      "type": "JavaScript.Async.ClearInterval",
+      "name": "clearInterval",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Timer",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "clearInterval({Timer});\n{Next}"
+    },
+    {
+      "type": "JavaScript.Async.Fetch",
+      "name": "Fetch (GET)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "URL",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "fetch({URL}).then(r => r.json())"
+    },
+    {
+      "type": "JavaScript.Async.FetchPost",
+      "name": "Fetch (POST)",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "URL",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Body",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "fetch({URL}, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({Body}) }).then(r => r.json())"
+    },
+    {
+      "type": "JavaScript.DOM.QuerySelector",
+      "name": "querySelector",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Selector",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Element",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "document.querySelector({Selector})"
+    },
+    {
+      "type": "JavaScript.DOM.QuerySelectorAll",
+      "name": "querySelectorAll",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Selector",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Elements",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "document.querySelectorAll({Selector})"
+    },
+    {
+      "type": "JavaScript.DOM.AddEventListener",
+      "name": "addEventListener",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Element",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Event",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Callback",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Element}.addEventListener({Event}, (e) => {\n{Callback}\n});\n{Next}"
+    },
+    {
+      "type": "JavaScript.DOM.SetInnerHTML",
+      "name": "Set innerHTML",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Element",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "HTML",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Element}.innerHTML = {HTML};\n{Next}"
+    },
+    {
+      "type": "JavaScript.DOM.SetTextContent",
+      "name": "Set textContent",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Element",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Text",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Element}.textContent = {Text};\n{Next}"
+    },
+    {
+      "type": "JavaScript.DOM.SetAttribute",
+      "name": "Set Attribute",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Element",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Attr",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Value",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Element}.setAttribute({Attr}, {Value});\n{Next}"
+    },
+    {
+      "type": "JavaScript.DOM.CreateElement",
+      "name": "Create Element",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Tag",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Element",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "const {Element} = document.createElement({Tag});\n{Next}"
+    },
+    {
+      "type": "JavaScript.DOM.AppendChild",
+      "name": "Append Child",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Parent",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Child",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Parent}.appendChild({Child});\n{Next}"
+    },
+    {
+      "type": "JavaScript.DOM.ClassListAdd",
+      "name": "ClassList Add",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Element",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Class",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Element}.classList.add({Class});\n{Next}"
+    },
+    {
+      "type": "JavaScript.DOM.SetStyle",
+      "name": "Set Style",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Element",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Prop",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Value",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Element}.style[{Prop}] = {Value};\n{Next}"
+    },
+    {
+      "type": "JavaScript.Comment",
+      "name": "Comment",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "TODO",
+      "code": "// {VALUE}\n{Next}"
+    },
+    {
+      "type": "JavaScript.Express.CreateApp",
+      "name": "Express Create App",
+      "language": "JavaScript",
+      "requires": [
+        "express"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "App",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "const {App} = express();\n{Next}"
+    },
+    {
+      "type": "JavaScript.Express.Get",
+      "name": "Express Route GET",
+      "language": "JavaScript",
+      "requires": [
+        "express"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "App",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Route",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Callback",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{App}.get({Route}, (req, res) => {\n{Callback}\n});\n{Next}"
+    },
+    {
+      "type": "JavaScript.Express.Post",
+      "name": "Express Route POST",
+      "language": "JavaScript",
+      "requires": [
+        "express"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "App",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Route",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Callback",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{App}.post({Route}, (req, res) => {\n{Callback}\n});\n{Next}"
+    },
+    {
+      "type": "JavaScript.Express.Send",
+      "name": "Express Response Send",
+      "language": "JavaScript",
+      "requires": [
+        "express"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "res.send({Value});\n{Next}"
+    },
+    {
+      "type": "JavaScript.Express.JSON",
+      "name": "Express Send JSON",
+      "language": "JavaScript",
+      "requires": [
+        "express"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "res.json({Value});\n{Next}"
+    },
+    {
+      "type": "JavaScript.Express.Status",
+      "name": "Express Status",
+      "language": "JavaScript",
+      "requires": [
+        "express"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Code",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "res.status({Code}).json({Value});\n{Next}"
+    },
+    {
+      "type": "JavaScript.Express.Middleware",
+      "name": "Express Use Middleware",
+      "language": "JavaScript",
+      "requires": [
+        "express"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "App",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{App}.use((req, res, next) => {\n{Body}\n    next();\n});\n{Next}"
+    },
+    {
+      "type": "JavaScript.Express.UseJSON",
+      "name": "Express JSON Parser",
+      "language": "JavaScript",
+      "requires": [
+        "express"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "App",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{App}.use(express.json());\n{Next}"
+    },
+    {
+      "type": "JavaScript.Express.Listen",
+      "name": "Express Listen",
+      "language": "JavaScript",
+      "requires": [
+        "express"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "App",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Port",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{App}.listen({Port}, () => {\n  console.log('Server running on port ' + {Port});\n});\n{Next}"
+    },
+    {
+      "type": "JavaScript.Node.FSRead",
+      "name": "FS Read File",
+      "language": "JavaScript",
+      "requires": [
+        "fs"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Path",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Content",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "const {Content} = fs.readFileSync({Path}, 'utf8');\n{Next}"
+    },
+    {
+      "type": "JavaScript.Node.FSWrite",
+      "name": "FS Write File",
+      "language": "JavaScript",
+      "requires": [
+        "fs"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Path",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Content",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "fs.writeFileSync({Path}, {Content});\n{Next}"
+    },
+    {
+      "type": "JavaScript.Node.ProcessEnv",
+      "name": "Process Env",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Key",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "process.env[{Key}]"
+    },
+    {
+      "type": "JavaScript.End",
+      "name": "End",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [],
+      "code": "// End"
+    }
+  ]
+}

@@ -1,0 +1,2518 @@
+{
+  "nodes": [
+    {
+      "type": "C++.Start",
+      "name": "Main Start",
+      "language": "C++",
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "int main() {\n{Next}\n    return 0;\n}"
+    },
+    {
+      "type": "C++.Print",
+      "name": "C++ Print",
+      "language": "C++",
+      "requires": [
+        "<iostream>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "std::cout << {Value} << std::endl;\n{Next}"
+    },
+    {
+      "type": "C++.PrintNoNewline",
+      "name": "Print (No Newline)",
+      "language": "C++",
+      "requires": [
+        "<iostream>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "std::cout << {Value};\n{Next}"
+    },
+    {
+      "type": "C++.ReadInput",
+      "name": "Read Input",
+      "language": "C++",
+      "requires": [
+        "<iostream>",
+        "<string>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "std::string {Out};\nstd::getline(std::cin, {Out});\n{Next}"
+    },
+    {
+      "type": "C++.ReadInt",
+      "name": "Read Integer",
+      "language": "C++",
+      "requires": [
+        "<iostream>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "int {Out};\nstd::cin >> {Out};\n{Next}"
+    },
+    {
+      "type": "C++.If",
+      "name": "Branch (If)",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Condition",
+          "type": "Boolean",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "True",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "False",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "if ({Condition}) {\n{True}\n} else {\n{False}\n}\n{Next}"
+    },
+    {
+      "type": "C++.ForLoop",
+      "name": "For Loop",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Start",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "End",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Loop",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Index",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "for (int {Index} = {Start}; {Index} < {End}; ++{Index}) {\n{Loop}\n}\n{Next}"
+    },
+    {
+      "type": "C++.WhileLoop",
+      "name": "While Loop",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Condition",
+          "type": "Boolean",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Loop",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "while ({Condition}) {\n{Loop}\n}\n{Next}"
+    },
+    {
+      "type": "C++.DoWhile",
+      "name": "Do-While Loop",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Condition",
+          "type": "Boolean",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Loop",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "do {\n{Loop}\n} while ({Condition});\n{Next}"
+    },
+    {
+      "type": "C++.ForEach",
+      "name": "Range-Based For",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Collection",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Item",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "for (auto& {Item} : {Collection}) {\n{Body}\n}\n{Next}"
+    },
+    {
+      "type": "C++.Switch",
+      "name": "Switch",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "switch ({Value}) {\n{Body}\n}\n{Next}"
+    },
+    {
+      "type": "C++.Case",
+      "name": "Case",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "case {Value}: {\n{Body}\n    break;\n}\n{Next}"
+    },
+    {
+      "type": "C++.Break",
+      "name": "Break",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [],
+      "code": "break;"
+    },
+    {
+      "type": "C++.Continue",
+      "name": "Continue",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [],
+      "code": "continue;"
+    },
+    {
+      "type": "C++.Return",
+      "name": "Return",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [],
+      "code": "return {Value};"
+    },
+    {
+      "type": "C++.TryCatch",
+      "name": "Try / Catch",
+      "language": "C++",
+      "requires": [
+        "<stdexcept>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Catch",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "try {\n{Body}\n} catch (const std::exception& e) {\n{Catch}\n}\n{Next}"
+    },
+    {
+      "type": "C++.ThrowException",
+      "name": "Throw Exception",
+      "language": "C++",
+      "requires": [
+        "<stdexcept>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Message",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [],
+      "code": "throw std::runtime_error({Message});"
+    },
+    {
+      "type": "C++.Variable.Set",
+      "name": "Set Variable",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "x",
+      "code": "auto {VALUE} = {Value};\nauto {Out} = {VALUE};\n{Next}"
+    },
+    {
+      "type": "C++.Variable.SetInt",
+      "name": "Set Int",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "x",
+      "code": "int {VALUE} = {Value};\nint {Out} = {VALUE};\n{Next}"
+    },
+    {
+      "type": "C++.Variable.SetString",
+      "name": "Set String",
+      "language": "C++",
+      "requires": [
+        "<string>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "s",
+      "code": "std::string {VALUE} = {Value};\nstd::string {Out} = {VALUE};\n{Next}"
+    },
+    {
+      "type": "C++.Variable.SetDouble",
+      "name": "Set Double",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "d",
+      "code": "double {VALUE} = {Value};\ndouble {Out} = {VALUE};\n{Next}"
+    },
+    {
+      "type": "C++.Variable.SetBool",
+      "name": "Set Bool",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Boolean",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "flag",
+      "code": "bool {VALUE} = {Value};\nbool {Out} = {VALUE};\n{Next}"
+    },
+    {
+      "type": "C++.Increment",
+      "name": "Increment (++)",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Var",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "++{Var};\n{Next}"
+    },
+    {
+      "type": "C++.Decrement",
+      "name": "Decrement (--)",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Var",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "--{Var};\n{Next}"
+    },
+    {
+      "type": "C++.Assign",
+      "name": "Assign (=)",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Target",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Target} = {Value};\n{Next}"
+    },
+    {
+      "type": "C++.Math.Add",
+      "name": "Add (+)",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} + {B})"
+    },
+    {
+      "type": "C++.Math.Subtract",
+      "name": "Subtract (-)",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} - {B})"
+    },
+    {
+      "type": "C++.Math.Multiply",
+      "name": "Multiply (*)",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} * {B})"
+    },
+    {
+      "type": "C++.Math.Divide",
+      "name": "Divide (/)",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} / {B})"
+    },
+    {
+      "type": "C++.Math.Modulo",
+      "name": "Modulo (%)",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} % {B})"
+    },
+    {
+      "type": "C++.Math.Power",
+      "name": "Power (^)",
+      "language": "C++",
+      "requires": [
+        "<cmath>"
+      ],
+      "inputs": [
+        {
+          "name": "Base",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "Exp",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "std::pow({Base}, {Exp})"
+    },
+    {
+      "type": "C++.Math.Sqrt",
+      "name": "Square Root",
+      "language": "C++",
+      "requires": [
+        "<cmath>"
+      ],
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "std::sqrt({Value})"
+    },
+    {
+      "type": "C++.Math.Abs",
+      "name": "Absolute Value",
+      "language": "C++",
+      "requires": [
+        "<cmath>"
+      ],
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "std::abs({Value})"
+    },
+    {
+      "type": "C++.Math.Min",
+      "name": "Min",
+      "language": "C++",
+      "requires": [
+        "<algorithm>"
+      ],
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "std::min({A}, {B})"
+    },
+    {
+      "type": "C++.Math.Max",
+      "name": "Max",
+      "language": "C++",
+      "requires": [
+        "<algorithm>"
+      ],
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "std::max({A}, {B})"
+    },
+    {
+      "type": "C++.Math.Floor",
+      "name": "Floor",
+      "language": "C++",
+      "requires": [
+        "<cmath>"
+      ],
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "std::floor({Value})"
+    },
+    {
+      "type": "C++.Math.Ceil",
+      "name": "Ceil",
+      "language": "C++",
+      "requires": [
+        "<cmath>"
+      ],
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "std::ceil({Value})"
+    },
+    {
+      "type": "C++.Math.Round",
+      "name": "Round",
+      "language": "C++",
+      "requires": [
+        "<cmath>"
+      ],
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "std::round({Value})"
+    },
+    {
+      "type": "C++.Math.Sin",
+      "name": "Sin",
+      "language": "C++",
+      "requires": [
+        "<cmath>"
+      ],
+      "inputs": [
+        {
+          "name": "Radians",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "std::sin({Radians})"
+    },
+    {
+      "type": "C++.Math.Cos",
+      "name": "Cos",
+      "language": "C++",
+      "requires": [
+        "<cmath>"
+      ],
+      "inputs": [
+        {
+          "name": "Radians",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "std::cos({Radians})"
+    },
+    {
+      "type": "C++.Math.Tan",
+      "name": "Tan",
+      "language": "C++",
+      "requires": [
+        "<cmath>"
+      ],
+      "inputs": [
+        {
+          "name": "Radians",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "std::tan({Radians})"
+    },
+    {
+      "type": "C++.Math.Random",
+      "name": "Random Int",
+      "language": "C++",
+      "requires": [
+        "<random>"
+      ],
+      "inputs": [
+        {
+          "name": "Min",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "Max",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "[&]{ static std::mt19937 rng(std::random_device{}()); return std::uniform_int_distribution<>({Min},{Max})(rng); }()"
+    },
+    {
+      "type": "C++.Math.Clamp",
+      "name": "Clamp",
+      "language": "C++",
+      "requires": [
+        "<algorithm>"
+      ],
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "Lo",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "Hi",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "std::clamp({Value}, {Lo}, {Hi})"
+    },
+    {
+      "type": "C++.Math.Negate",
+      "name": "Negate (-x)",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "(-{Value})"
+    },
+    {
+      "type": "C++.Compare.Equal",
+      "name": "Equal (==)",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} == {B})"
+    },
+    {
+      "type": "C++.Compare.NotEqual",
+      "name": "Not Equal (!=)",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} != {B})"
+    },
+    {
+      "type": "C++.Compare.Greater",
+      "name": "Greater Than (>)",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} > {B})"
+    },
+    {
+      "type": "C++.Compare.Less",
+      "name": "Less Than (<)",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} < {B})"
+    },
+    {
+      "type": "C++.Compare.GreaterEqual",
+      "name": "Greater or Equal (>=)",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} >= {B})"
+    },
+    {
+      "type": "C++.Compare.LessEqual",
+      "name": "Less or Equal (<=)",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} <= {B})"
+    },
+    {
+      "type": "C++.Logic.And",
+      "name": "AND (&&)",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Boolean",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Boolean",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} && {B})"
+    },
+    {
+      "type": "C++.Logic.Or",
+      "name": "OR (||)",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Boolean",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Boolean",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} || {B})"
+    },
+    {
+      "type": "C++.Logic.Not",
+      "name": "NOT (!)",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Boolean",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "(!{Value})"
+    },
+    {
+      "type": "C++.String.Concat",
+      "name": "String Concat",
+      "language": "C++",
+      "requires": [
+        "<string>"
+      ],
+      "inputs": [
+        {
+          "name": "A",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "(std::string({A}) + std::string({B}))"
+    },
+    {
+      "type": "C++.String.Length",
+      "name": "String Length",
+      "language": "C++",
+      "requires": [
+        "<string>"
+      ],
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "static_cast<int>({Str}.size())"
+    },
+    {
+      "type": "C++.String.Substr",
+      "name": "Substring",
+      "language": "C++",
+      "requires": [
+        "<string>"
+      ],
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Pos",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "Len",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "{Str}.substr({Pos}, {Len})"
+    },
+    {
+      "type": "C++.String.Find",
+      "name": "String Find",
+      "language": "C++",
+      "requires": [
+        "<string>"
+      ],
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Query",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "static_cast<int>({Str}.find({Query}))"
+    },
+    {
+      "type": "C++.String.ToInt",
+      "name": "String to Int",
+      "language": "C++",
+      "requires": [
+        "<string>"
+      ],
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "std::stoi({Str})"
+    },
+    {
+      "type": "C++.String.ToDouble",
+      "name": "String to Double",
+      "language": "C++",
+      "requires": [
+        "<string>"
+      ],
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "std::stod({Str})"
+    },
+    {
+      "type": "C++.String.ToString",
+      "name": "To String",
+      "language": "C++",
+      "requires": [
+        "<string>"
+      ],
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "std::to_string({Value})"
+    },
+    {
+      "type": "C++.Vector.Create",
+      "name": "Create Vector",
+      "language": "C++",
+      "requires": [
+        "<vector>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Vec",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "int",
+      "code": "std::vector<{VALUE}> {Vec};\n{Next}"
+    },
+    {
+      "type": "C++.Vector.PushBack",
+      "name": "Vector Push Back",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Vec",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Vec}.push_back({Value});\n{Next}"
+    },
+    {
+      "type": "C++.Vector.PopBack",
+      "name": "Vector Pop Back",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Vec",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Vec}.pop_back();\n{Next}"
+    },
+    {
+      "type": "C++.Vector.At",
+      "name": "Vector Get [i]",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Vec",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Index",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "{Vec}[{Index}]"
+    },
+    {
+      "type": "C++.Vector.Size",
+      "name": "Vector Size",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Vec",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "static_cast<int>({Vec}.size())"
+    },
+    {
+      "type": "C++.Vector.Sort",
+      "name": "Vector Sort",
+      "language": "C++",
+      "requires": [
+        "<algorithm>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Vec",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "std::sort({Vec}.begin(), {Vec}.end());\n{Next}"
+    },
+    {
+      "type": "C++.Vector.Reverse",
+      "name": "Vector Reverse",
+      "language": "C++",
+      "requires": [
+        "<algorithm>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Vec",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "std::reverse({Vec}.begin(), {Vec}.end());\n{Next}"
+    },
+    {
+      "type": "C++.Vector.Clear",
+      "name": "Vector Clear",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Vec",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Vec}.clear();\n{Next}"
+    },
+    {
+      "type": "C++.Map.Create",
+      "name": "Create Map",
+      "language": "C++",
+      "requires": [
+        "<map>",
+        "<string>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Map",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "std::string, int",
+      "code": "std::map<{VALUE}> {Map};\n{Next}"
+    },
+    {
+      "type": "C++.Map.Insert",
+      "name": "Map Insert",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Map",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Key",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Map}[{Key}] = {Value};\n{Next}"
+    },
+    {
+      "type": "C++.Map.Get",
+      "name": "Map Get",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Map",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Key",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "{Map}[{Key}]"
+    },
+    {
+      "type": "C++.Map.Contains",
+      "name": "Map Contains",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Map",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Key",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({Map}.count({Key}) > 0)"
+    },
+    {
+      "type": "C++.File.Write",
+      "name": "Write File",
+      "language": "C++",
+      "requires": [
+        "<fstream>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Path",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Content",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{ std::ofstream ofs({Path}); ofs << {Content}; }\n{Next}"
+    },
+    {
+      "type": "C++.File.Read",
+      "name": "Read File",
+      "language": "C++",
+      "requires": [
+        "<fstream>",
+        "<sstream>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Path",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Content",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "std::string {Content};\n{ std::ifstream ifs({Path}); std::ostringstream ss; ss << ifs.rdbuf(); {Content} = ss.str(); }\n{Next}"
+    },
+    {
+      "type": "C++.File.Append",
+      "name": "Append File",
+      "language": "C++",
+      "requires": [
+        "<fstream>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Path",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Content",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{ std::ofstream ofs({Path}, std::ios::app); ofs << {Content}; }\n{Next}"
+    },
+    {
+      "type": "C++.Function.Define",
+      "name": "Define Function",
+      "language": "C++",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "void myFunc()",
+      "code": "{VALUE} {\n{Body}\n}\n"
+    },
+    {
+      "type": "C++.Function.Lambda",
+      "name": "Lambda",
+      "language": "C++",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Func",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "auto myLambda",
+      "code": "{VALUE} = [&]() {\n{Body}\n};\nauto {Func} = {VALUE};\n"
+    },
+    {
+      "type": "C++.Thread.Create",
+      "name": "Create Thread",
+      "language": "C++",
+      "requires": [
+        "<thread>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Thread",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "t1",
+      "code": "std::thread {VALUE}([&]() {\n{Body}\n});\nauto& {Thread} = {VALUE};\n{Next}"
+    },
+    {
+      "type": "C++.Thread.Join",
+      "name": "Thread Join",
+      "language": "C++",
+      "requires": [
+        "<thread>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Thread",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Thread}.join();\n{Next}"
+    },
+    {
+      "type": "C++.Thread.Sleep",
+      "name": "Sleep (ms)",
+      "language": "C++",
+      "requires": [
+        "<thread>",
+        "<chrono>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Ms",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "std::this_thread::sleep_for(std::chrono::milliseconds({Ms}));\n{Next}"
+    },
+    {
+      "type": "C++.Mutex.Lock",
+      "name": "Mutex Lock Scope",
+      "language": "C++",
+      "requires": [
+        "<mutex>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Mutex",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{\n    std::lock_guard<std::mutex> lock({Mutex});\n{Body}\n}\n{Next}"
+    },
+    {
+      "type": "C++.Memory.MakeUnique",
+      "name": "Make Unique",
+      "language": "C++",
+      "requires": [
+        "<memory>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Ptr",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "int",
+      "code": "auto {Ptr} = std::make_unique<{VALUE}>({Value});\n{Next}"
+    },
+    {
+      "type": "C++.Memory.MakeShared",
+      "name": "Make Shared",
+      "language": "C++",
+      "requires": [
+        "<memory>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Ptr",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "int",
+      "code": "auto {Ptr} = std::make_shared<{VALUE}>({Value});\n{Next}"
+    },
+    {
+      "type": "C++.Cast.StaticCast",
+      "name": "Static Cast",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "int",
+      "code": "static_cast<{VALUE}>({Value})"
+    },
+    {
+      "type": "C++.Algorithm.ForEach",
+      "name": "std::for_each",
+      "language": "C++",
+      "requires": [
+        "<algorithm>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Collection",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "std::for_each({Collection}.begin(), {Collection}.end(), [&](auto& item) {\n{Body}\n});\n{Next}"
+    },
+    {
+      "type": "C++.Algorithm.Accumulate",
+      "name": "Accumulate (sum)",
+      "language": "C++",
+      "requires": [
+        "<numeric>"
+      ],
+      "inputs": [
+        {
+          "name": "Collection",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Init",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "std::accumulate({Collection}.begin(), {Collection}.end(), {Init})"
+    },
+    {
+      "type": "C++.Algorithm.Count",
+      "name": "Count Value",
+      "language": "C++",
+      "requires": [
+        "<algorithm>"
+      ],
+      "inputs": [
+        {
+          "name": "Collection",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "static_cast<int>(std::count({Collection}.begin(), {Collection}.end(), {Value}))"
+    },
+    {
+      "type": "C++.Comment",
+      "name": "Comment",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "TODO",
+      "code": "// {VALUE}\n{Next}"
+    },
+    {
+      "type": "C++.Struct.Define",
+      "name": "Define Struct",
+      "language": "C++",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "MyStruct",
+      "code": "struct {VALUE} {\n{Body}\n};\n"
+    },
+    {
+      "type": "C++.Struct.Field",
+      "name": "Struct Field",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "int value",
+      "code": "{VALUE};\n{Next}"
+    },
+    {
+      "type": "C++.Win32.MessageBox",
+      "name": "Win32 MessageBox",
+      "language": "C++",
+      "requires": [
+        "<windows.h>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Text",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Title",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "MessageBoxA(NULL, {Text}, {Title}, MB_OK);\n{Next}"
+    },
+    {
+      "type": "C++.Win32.Beep",
+      "name": "Win32 Beep",
+      "language": "C++",
+      "requires": [
+        "<windows.h>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Freq",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "Duration",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "Beep(({Freq}), ({Duration}));\n{Next}"
+    },
+    {
+      "type": "C++.Win32.Sleep",
+      "name": "Win32 Sleep",
+      "language": "C++",
+      "requires": [
+        "<windows.h>"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Ms",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "Sleep({Ms});\n{Next}"
+    },
+    {
+      "type": "C++.End",
+      "name": "End",
+      "language": "C++",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [],
+      "code": "// End"
+    }
+  ]
+}

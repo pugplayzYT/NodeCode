@@ -1,0 +1,3191 @@
+{
+  "nodes": [
+    {
+      "type": "Python.Start",
+      "name": "Script Start",
+      "language": "Python",
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "# Python Script\n{Next}"
+    },
+    {
+      "type": "Python.Print",
+      "name": "Python Print",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "print({Value})\n{Next}"
+    },
+    {
+      "type": "Python.PrintF",
+      "name": "Print F-String",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Template",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "print(f{Template})\n{Next}"
+    },
+    {
+      "type": "Python.Input",
+      "name": "Input (read)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Prompt",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "{Out} = input({Prompt})\n{Next}"
+    },
+    {
+      "type": "Python.If",
+      "name": "Branch (If)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Condition",
+          "type": "Boolean",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "True",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "False",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "if {Condition}:\n{True}\nelse:\n{False}\n{Next}"
+    },
+    {
+      "type": "Python.While",
+      "name": "While Loop",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Condition",
+          "type": "Boolean",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Loop",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "while {Condition}:\n{Loop}\n{Next}"
+    },
+    {
+      "type": "Python.ForRange",
+      "name": "For Range",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Start",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "End",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Loop",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Index",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "for {Index} in range({Start}, {End}):\n{Loop}\n{Next}"
+    },
+    {
+      "type": "Python.ForRangeStep",
+      "name": "For Range (Step)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Start",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "End",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "Step",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Loop",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Index",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "for {Index} in range({Start}, {End}, {Step}):\n{Loop}\n{Next}"
+    },
+    {
+      "type": "Python.ForEach",
+      "name": "For Each",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Collection",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Item",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "for {Item} in {Collection}:\n{Body}\n{Next}"
+    },
+    {
+      "type": "Python.ForEnumerate",
+      "name": "For Enumerate",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Collection",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Index",
+          "type": "Number",
+          "allowInline": false
+        },
+        {
+          "name": "Item",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "for {Index}, {Item} in enumerate({Collection}):\n{Body}\n{Next}"
+    },
+    {
+      "type": "Python.Break",
+      "name": "Break",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [],
+      "code": "break"
+    },
+    {
+      "type": "Python.Continue",
+      "name": "Continue",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [],
+      "code": "continue"
+    },
+    {
+      "type": "Python.Pass",
+      "name": "Pass",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "pass\n{Next}"
+    },
+    {
+      "type": "Python.Return",
+      "name": "Return",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [],
+      "code": "return {Value}"
+    },
+    {
+      "type": "Python.TryExcept",
+      "name": "Try / Except",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Catch",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "try:\n{Body}\nexcept Exception as e:\n{Catch}\n{Next}"
+    },
+    {
+      "type": "Python.TryFinally",
+      "name": "Try / Finally",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Catch",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "try:\n{Body}\nfinally:\n{Catch}\n{Next}"
+    },
+    {
+      "type": "Python.Raise",
+      "name": "Raise Exception",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Message",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [],
+      "code": "raise Exception({Message})"
+    },
+    {
+      "type": "Python.With",
+      "name": "With (Context)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Context",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "As",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "with {Context} as {As}:\n{Body}\n{Next}"
+    },
+    {
+      "type": "Python.Variable.Set",
+      "name": "Set Variable",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "x",
+      "code": "{VALUE} = {Value}\n{Out} = {VALUE}\n{Next}"
+    },
+    {
+      "type": "Python.Variable.SetInt",
+      "name": "Set Int",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Value",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "x",
+      "code": "{VALUE} = int({Value})\n{Out} = {VALUE}\n{Next}"
+    },
+    {
+      "type": "Python.Assign",
+      "name": "Assign (=)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Target",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Target} = {Value}\n{Next}"
+    },
+    {
+      "type": "Python.Math.Add",
+      "name": "Add (+)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} + {B})"
+    },
+    {
+      "type": "Python.Math.Subtract",
+      "name": "Subtract (-)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} - {B})"
+    },
+    {
+      "type": "Python.Math.Multiply",
+      "name": "Multiply (*)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} * {B})"
+    },
+    {
+      "type": "Python.Math.Divide",
+      "name": "Divide (/)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} / {B})"
+    },
+    {
+      "type": "Python.Math.FloorDiv",
+      "name": "Floor Divide (//)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} // {B})"
+    },
+    {
+      "type": "Python.Math.Modulo",
+      "name": "Modulo (%)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} % {B})"
+    },
+    {
+      "type": "Python.Math.Power",
+      "name": "Power (**)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Base",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "Exp",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "({Base} ** {Exp})"
+    },
+    {
+      "type": "Python.Math.Sqrt",
+      "name": "Square Root",
+      "language": "Python",
+      "requires": [
+        "math"
+      ],
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "math.sqrt({Value})"
+    },
+    {
+      "type": "Python.Math.Abs",
+      "name": "Absolute Value",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "abs({Value})"
+    },
+    {
+      "type": "Python.Math.Min",
+      "name": "Min",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "min({A}, {B})"
+    },
+    {
+      "type": "Python.Math.Max",
+      "name": "Max",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "max({A}, {B})"
+    },
+    {
+      "type": "Python.Math.Round",
+      "name": "Round",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "Digits",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "round({Value}, {Digits})"
+    },
+    {
+      "type": "Python.Math.Floor",
+      "name": "Floor",
+      "language": "Python",
+      "requires": [
+        "math"
+      ],
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "math.floor({Value})"
+    },
+    {
+      "type": "Python.Math.Ceil",
+      "name": "Ceil",
+      "language": "Python",
+      "requires": [
+        "math"
+      ],
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "math.ceil({Value})"
+    },
+    {
+      "type": "Python.Math.Sin",
+      "name": "Sin",
+      "language": "Python",
+      "requires": [
+        "math"
+      ],
+      "inputs": [
+        {
+          "name": "Radians",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "math.sin({Radians})"
+    },
+    {
+      "type": "Python.Math.Cos",
+      "name": "Cos",
+      "language": "Python",
+      "requires": [
+        "math"
+      ],
+      "inputs": [
+        {
+          "name": "Radians",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "math.cos({Radians})"
+    },
+    {
+      "type": "Python.Math.Random",
+      "name": "Random Float",
+      "language": "Python",
+      "requires": [
+        "random"
+      ],
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "random.random()"
+    },
+    {
+      "type": "Python.Math.RandInt",
+      "name": "Random Int",
+      "language": "Python",
+      "requires": [
+        "random"
+      ],
+      "inputs": [
+        {
+          "name": "Min",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "Max",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "random.randint({Min}, {Max})"
+    },
+    {
+      "type": "Python.Compare.Equal",
+      "name": "Equal (==)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} == {B})"
+    },
+    {
+      "type": "Python.Compare.NotEqual",
+      "name": "Not Equal (!=)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} != {B})"
+    },
+    {
+      "type": "Python.Compare.Greater",
+      "name": "Greater Than (>)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} > {B})"
+    },
+    {
+      "type": "Python.Compare.Less",
+      "name": "Less Than (<)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} < {B})"
+    },
+    {
+      "type": "Python.Compare.GreaterEqual",
+      "name": "Greater or Equal (>=)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} >= {B})"
+    },
+    {
+      "type": "Python.Compare.LessEqual",
+      "name": "Less or Equal (<=)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} <= {B})"
+    },
+    {
+      "type": "Python.Compare.In",
+      "name": "In (contains)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Item",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Collection",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({Item} in {Collection})"
+    },
+    {
+      "type": "Python.Logic.And",
+      "name": "AND",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Boolean",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Boolean",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} and {B})"
+    },
+    {
+      "type": "Python.Logic.Or",
+      "name": "OR",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Boolean",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Boolean",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} or {B})"
+    },
+    {
+      "type": "Python.Logic.Not",
+      "name": "NOT",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Boolean",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "(not {Value})"
+    },
+    {
+      "type": "Python.String.Concat",
+      "name": "String Concat (+)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "({A} + {B})"
+    },
+    {
+      "type": "Python.String.FString",
+      "name": "F-String",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Template",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "f{Template}"
+    },
+    {
+      "type": "Python.String.Length",
+      "name": "String Length",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "len({Str})"
+    },
+    {
+      "type": "Python.String.Upper",
+      "name": "To Upper",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "{Str}.upper()"
+    },
+    {
+      "type": "Python.String.Lower",
+      "name": "To Lower",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "{Str}.lower()"
+    },
+    {
+      "type": "Python.String.Strip",
+      "name": "Strip",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "{Str}.strip()"
+    },
+    {
+      "type": "Python.String.Split",
+      "name": "Split",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Delim",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "{Str}.split({Delim})"
+    },
+    {
+      "type": "Python.String.Join",
+      "name": "Join",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Delim",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "List",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "{Delim}.join({List})"
+    },
+    {
+      "type": "Python.String.Replace",
+      "name": "String Replace",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Old",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "New",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "{Str}.replace({Old}, {New})"
+    },
+    {
+      "type": "Python.String.Find",
+      "name": "String Find",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Query",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "{Str}.find({Query})"
+    },
+    {
+      "type": "Python.String.StartsWith",
+      "name": "Starts With",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Prefix",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "{Str}.startswith({Prefix})"
+    },
+    {
+      "type": "Python.String.Slice",
+      "name": "String Slice",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Start",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "End",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "{Str}[{Start}:{End}]"
+    },
+    {
+      "type": "Python.Cast.ToInt",
+      "name": "To Int",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "int({Value})"
+    },
+    {
+      "type": "Python.Cast.ToFloat",
+      "name": "To Float",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "float({Value})"
+    },
+    {
+      "type": "Python.Cast.ToStr",
+      "name": "To String",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "str({Value})"
+    },
+    {
+      "type": "Python.List.Create",
+      "name": "Create List",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "List",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "my_list",
+      "code": "{VALUE} = []\n{List} = {VALUE}\n{Next}"
+    },
+    {
+      "type": "Python.List.Append",
+      "name": "List Append",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "List",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{List}.append({Value})\n{Next}"
+    },
+    {
+      "type": "Python.List.Pop",
+      "name": "List Pop",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "List",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "{Out} = {List}.pop()\n{Next}"
+    },
+    {
+      "type": "Python.List.Insert",
+      "name": "List Insert",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "List",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Index",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{List}.insert({Index}, {Value})\n{Next}"
+    },
+    {
+      "type": "Python.List.Remove",
+      "name": "List Remove",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "List",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{List}.remove({Value})\n{Next}"
+    },
+    {
+      "type": "Python.List.Sort",
+      "name": "List Sort",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "List",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{List}.sort()\n{Next}"
+    },
+    {
+      "type": "Python.List.Reverse",
+      "name": "List Reverse",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "List",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{List}.reverse()\n{Next}"
+    },
+    {
+      "type": "Python.List.Index",
+      "name": "List Get [i]",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "List",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Index",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "{List}[{Index}]"
+    },
+    {
+      "type": "Python.List.Length",
+      "name": "List Length",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "List",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "len({List})"
+    },
+    {
+      "type": "Python.List.Slice",
+      "name": "List Slice",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "List",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Start",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "End",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "{List}[{Start}:{End}]"
+    },
+    {
+      "type": "Python.List.Map",
+      "name": "Map (func)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Func",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "List",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "list(map({Func}, {List}))"
+    },
+    {
+      "type": "Python.List.Filter",
+      "name": "Filter (func)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Func",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "List",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "list(filter({Func}, {List}))"
+    },
+    {
+      "type": "Python.List.Sum",
+      "name": "Sum",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "List",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "sum({List})"
+    },
+    {
+      "type": "Python.List.Zip",
+      "name": "Zip",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "B",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "list(zip({A}, {B}))"
+    },
+    {
+      "type": "Python.List.Sorted",
+      "name": "Sorted (new)",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "List",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "sorted({List})"
+    },
+    {
+      "type": "Python.Dict.Create",
+      "name": "Create Dict",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Dict",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "my_dict",
+      "code": "{VALUE} = {}\n{Dict} = {VALUE}\n{Next}"
+    },
+    {
+      "type": "Python.Dict.Set",
+      "name": "Dict Set Key",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Dict",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Key",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Value",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Dict}[{Key}] = {Value}\n{Next}"
+    },
+    {
+      "type": "Python.Dict.Get",
+      "name": "Dict Get Key",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Dict",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Key",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Default",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "{Dict}.get({Key}, {Default})"
+    },
+    {
+      "type": "Python.Dict.Delete",
+      "name": "Dict Delete Key",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Dict",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Key",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "del {Dict}[{Key}]\n{Next}"
+    },
+    {
+      "type": "Python.Dict.Keys",
+      "name": "Dict Keys",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Dict",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "list({Dict}.keys())"
+    },
+    {
+      "type": "Python.Dict.Values",
+      "name": "Dict Values",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Dict",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "list({Dict}.values())"
+    },
+    {
+      "type": "Python.Dict.Items",
+      "name": "Dict Items",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Dict",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "list({Dict}.items())"
+    },
+    {
+      "type": "Python.Dict.Update",
+      "name": "Dict Update",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Dict",
+          "type": "Any",
+          "allowInline": true
+        },
+        {
+          "name": "Other",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "{Dict}.update({Other})\n{Next}"
+    },
+    {
+      "type": "Python.Func.Define",
+      "name": "Define Function",
+      "language": "Python",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "def my_func()",
+      "code": "{VALUE}:\n{Body}\n"
+    },
+    {
+      "type": "Python.Func.Lambda",
+      "name": "Lambda",
+      "language": "Python",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Func",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "lambda x: x * 2",
+      "code": "{VALUE}"
+    },
+    {
+      "type": "Python.Class.Define",
+      "name": "Define Class",
+      "language": "Python",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "class MyClass",
+      "code": "{VALUE}:\n{Body}\n"
+    },
+    {
+      "type": "Python.Class.Init",
+      "name": "Init Method",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "def __init__(self)",
+      "code": "{VALUE}:\n{Body}\n{Next}"
+    },
+    {
+      "type": "Python.Class.Method",
+      "name": "Class Method",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "def my_method(self)",
+      "code": "{VALUE}:\n{Body}\n{Next}"
+    },
+    {
+      "type": "Python.File.Open",
+      "name": "Open File",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Path",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Mode",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Body",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "File",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "with open({Path}, {Mode}) as {File}:\n{Body}\n{Next}"
+    },
+    {
+      "type": "Python.File.ReadAll",
+      "name": "Read Entire File",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Path",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Content",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "with open({Path}, 'r') as _f:\n    {Content} = _f.read()\n{Next}"
+    },
+    {
+      "type": "Python.File.WriteAll",
+      "name": "Write Entire File",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Path",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Content",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "with open({Path}, 'w') as _f:\n    _f.write({Content})\n{Next}"
+    },
+    {
+      "type": "Python.JSON.Load",
+      "name": "JSON Load",
+      "language": "Python",
+      "requires": [
+        "json"
+      ],
+      "inputs": [
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "json.loads({Str})"
+    },
+    {
+      "type": "Python.JSON.Dump",
+      "name": "JSON Dump",
+      "language": "Python",
+      "requires": [
+        "json"
+      ],
+      "inputs": [
+        {
+          "name": "Obj",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "json.dumps({Obj}, indent=2)"
+    },
+    {
+      "type": "Python.OS.System",
+      "name": "Run Command",
+      "language": "Python",
+      "requires": [
+        "os"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Cmd",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "os.system({Cmd})\n{Next}"
+    },
+    {
+      "type": "Python.OS.ListDir",
+      "name": "List Directory",
+      "language": "Python",
+      "requires": [
+        "os"
+      ],
+      "inputs": [
+        {
+          "name": "Path",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "os.listdir({Path})"
+    },
+    {
+      "type": "Python.OS.PathExists",
+      "name": "Path Exists",
+      "language": "Python",
+      "requires": [
+        "os"
+      ],
+      "inputs": [
+        {
+          "name": "Path",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "os.path.exists({Path})"
+    },
+    {
+      "type": "Python.OS.MakeDir",
+      "name": "Make Directory",
+      "language": "Python",
+      "requires": [
+        "os"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Path",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "os.makedirs({Path}, exist_ok=True)\n{Next}"
+    },
+    {
+      "type": "Python.OS.GetEnv",
+      "name": "Get Env Var",
+      "language": "Python",
+      "requires": [
+        "os"
+      ],
+      "inputs": [
+        {
+          "name": "Key",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Default",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "os.environ.get({Key}, {Default})"
+    },
+    {
+      "type": "Python.Time.Sleep",
+      "name": "Sleep (sec)",
+      "language": "Python",
+      "requires": [
+        "time"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Seconds",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "time.sleep({Seconds})\n{Next}"
+    },
+    {
+      "type": "Python.Time.Now",
+      "name": "Time Now",
+      "language": "Python",
+      "requires": [
+        "time"
+      ],
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Number",
+          "allowInline": false
+        }
+      ],
+      "code": "time.time()"
+    },
+    {
+      "type": "Python.DateTime.Now",
+      "name": "DateTime Now",
+      "language": "Python",
+      "requires": [
+        "datetime"
+      ],
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "datetime.datetime.now()"
+    },
+    {
+      "type": "Python.Regex.Match",
+      "name": "Regex Match",
+      "language": "Python",
+      "requires": [
+        "re"
+      ],
+      "inputs": [
+        {
+          "name": "Pattern",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Boolean",
+          "allowInline": false
+        }
+      ],
+      "code": "bool(re.match({Pattern}, {Str}))"
+    },
+    {
+      "type": "Python.Regex.FindAll",
+      "name": "Regex Find All",
+      "language": "Python",
+      "requires": [
+        "re"
+      ],
+      "inputs": [
+        {
+          "name": "Pattern",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "re.findall({Pattern}, {Str})"
+    },
+    {
+      "type": "Python.Regex.Sub",
+      "name": "Regex Replace",
+      "language": "Python",
+      "requires": [
+        "re"
+      ],
+      "inputs": [
+        {
+          "name": "Pattern",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Replace",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Str",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "re.sub({Pattern}, {Replace}, {Str})"
+    },
+    {
+      "type": "Python.HTTP.Get",
+      "name": "HTTP GET",
+      "language": "Python",
+      "requires": [
+        "requests"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "URL",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Response",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "{Response} = requests.get({URL})\n{Next}"
+    },
+    {
+      "type": "Python.HTTP.Post",
+      "name": "HTTP POST",
+      "language": "Python",
+      "requires": [
+        "requests"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "URL",
+          "type": "String",
+          "allowInline": true
+        },
+        {
+          "name": "Data",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Response",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "{Response} = requests.post({URL}, json={Data})\n{Next}"
+    },
+    {
+      "type": "Python.HTTP.ResponseText",
+      "name": "Response Text",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Response",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "{Response}.text"
+    },
+    {
+      "type": "Python.HTTP.ResponseJSON",
+      "name": "Response JSON",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Response",
+          "type": "Any",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Out",
+          "type": "Any",
+          "allowInline": false
+        }
+      ],
+      "code": "{Response}.json()"
+    },
+    {
+      "type": "Python.Comment",
+      "name": "Comment",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "hasValue": true,
+      "value": "TODO",
+      "code": "# {VALUE}\n{Next}"
+    },
+    {
+      "type": "Python.Assert",
+      "name": "Assert",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Condition",
+          "type": "Boolean",
+          "allowInline": true
+        },
+        {
+          "name": "Message",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "assert {Condition}, {Message}\n{Next}"
+    },
+    {
+      "type": "Python.Turtle.Forward",
+      "name": "Turtle Forward",
+      "language": "Python",
+      "requires": [
+        "turtle"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Distance",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "turtle.forward({Distance})\n{Next}"
+    },
+    {
+      "type": "Python.Turtle.Left",
+      "name": "Turtle Left",
+      "language": "Python",
+      "requires": [
+        "turtle"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Angle",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "turtle.left({Angle})\n{Next}"
+    },
+    {
+      "type": "Python.Turtle.Right",
+      "name": "Turtle Right",
+      "language": "Python",
+      "requires": [
+        "turtle"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Angle",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "turtle.right({Angle})\n{Next}"
+    },
+    {
+      "type": "Python.Turtle.PenUp",
+      "name": "Turtle PenUp",
+      "language": "Python",
+      "requires": [
+        "turtle"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "turtle.penup()\n{Next}"
+    },
+    {
+      "type": "Python.Turtle.PenDown",
+      "name": "Turtle PenDown",
+      "language": "Python",
+      "requires": [
+        "turtle"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "turtle.pendown()\n{Next}"
+    },
+    {
+      "type": "Python.Turtle.Color",
+      "name": "Turtle Color",
+      "language": "Python",
+      "requires": [
+        "turtle"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Color",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "turtle.color({Color})\n{Next}"
+    },
+    {
+      "type": "Python.Turtle.Circle",
+      "name": "Turtle Circle",
+      "language": "Python",
+      "requires": [
+        "turtle"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Radius",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "turtle.circle({Radius})\n{Next}"
+    },
+    {
+      "type": "Python.Turtle.Goto",
+      "name": "Turtle Goto",
+      "language": "Python",
+      "requires": [
+        "turtle"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "X",
+          "type": "Number",
+          "allowInline": true
+        },
+        {
+          "name": "Y",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "turtle.goto({X}, {Y})\n{Next}"
+    },
+    {
+      "type": "Python.Turtle.Speed",
+      "name": "Turtle Speed",
+      "language": "Python",
+      "requires": [
+        "turtle"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        },
+        {
+          "name": "Speed",
+          "type": "Number",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Next",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "code": "turtle.speed({Speed})\n{Next}"
+    },
+    {
+      "type": "Python.Turtle.Done",
+      "name": "Turtle Done",
+      "language": "Python",
+      "requires": [
+        "turtle"
+      ],
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [],
+      "code": "turtle.done()"
+    },
+    {
+      "type": "Python.End",
+      "name": "End",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "Enter",
+          "type": "Exec",
+          "allowInline": false
+        }
+      ],
+      "outputs": [],
+      "code": "# End"
+    }
+  ]
+}
