@@ -8,9 +8,7 @@ class CodeGenFixture : public ::testing::Test {
 protected:
   Project project;
 
-  void SetUp() override {
-    project.setLanguage("C++");
-  }
+  void SetUp() override { project.setLanguage("C++"); }
 };
 
 // ── Empty Graph ─────────────────────────────────────────────────────────────
@@ -70,8 +68,8 @@ TEST_F(CodeGenFixture, ExecFlowSequentialCode) {
   print->addInput("Text", "String", "hello");
   print->setCodeTemplate("std::cout << {Text};\n{ExecOut}");
 
-  project.graph()->addLink(start->id(), start->outputs()[0].id,
-                           print->id(), print->inputs()[0].id);
+  project.graph()->addLink(start->id(), start->outputs()[0].id, print->id(),
+                           print->inputs()[0].id);
 
   QString code = CodeGenerator::generate(&project);
   EXPECT_TRUE(code.contains("std::cout"));
@@ -95,10 +93,10 @@ TEST_F(CodeGenFixture, ExecFlowChainedNodes) {
   p2->addInput("Text", "String", "second");
   p2->setCodeTemplate("print({Text});\n{ExecOut}");
 
-  project.graph()->addLink(start->id(), start->outputs()[0].id,
-                           p1->id(), p1->inputs()[0].id);
-  project.graph()->addLink(p1->id(), p1->outputs()[0].id,
-                           p2->id(), p2->inputs()[0].id);
+  project.graph()->addLink(start->id(), start->outputs()[0].id, p1->id(),
+                           p1->inputs()[0].id);
+  project.graph()->addLink(p1->id(), p1->outputs()[0].id, p2->id(),
+                           p2->inputs()[0].id);
 
   QString code = CodeGenerator::generate(&project);
   EXPECT_TRUE(code.contains("\"first\""));
@@ -118,8 +116,8 @@ TEST_F(CodeGenFixture, StringInlineValueIsQuoted) {
   print->addInput("Text", "String", "hello");
   print->setCodeTemplate("print({Text});\n");
 
-  project.graph()->addLink(start->id(), start->outputs()[0].id,
-                           print->id(), print->inputs()[0].id);
+  project.graph()->addLink(start->id(), start->outputs()[0].id, print->id(),
+                           print->inputs()[0].id);
 
   QString code = CodeGenerator::generate(&project);
   EXPECT_TRUE(code.contains("\"hello\""));
@@ -137,8 +135,8 @@ TEST_F(CodeGenFixture, NumberInlineValueNotQuoted) {
   math->addOutput("Result", "Number");
   math->setCodeTemplate("int {Result} = {A} + {B};\n");
 
-  project.graph()->addLink(start->id(), start->outputs()[0].id,
-                           math->id(), math->inputs()[0].id);
+  project.graph()->addLink(start->id(), start->outputs()[0].id, math->id(),
+                           math->inputs()[0].id);
 
   QString code = CodeGenerator::generate(&project);
   EXPECT_TRUE(code.contains("42"));
@@ -158,8 +156,8 @@ TEST_F(CodeGenFixture, BooleanInlineValueNotQuoted) {
   logic->addOutput("Result", "Boolean");
   logic->setCodeTemplate("bool {Result} = !{Value};\n");
 
-  project.graph()->addLink(start->id(), start->outputs()[0].id,
-                           logic->id(), logic->inputs()[0].id);
+  project.graph()->addLink(start->id(), start->outputs()[0].id, logic->id(),
+                           logic->inputs()[0].id);
 
   QString code = CodeGenerator::generate(&project);
   EXPECT_TRUE(code.contains("true"));
@@ -181,8 +179,8 @@ TEST_F(CodeGenFixture, LinkedNodesUseVariableNames) {
   math->addOutput("Result", "Number");
   math->setCodeTemplate("int {Result} = {A} + {B};\n");
 
-  project.graph()->addLink(start->id(), start->outputs()[0].id,
-                           math->id(), math->inputs()[0].id);
+  project.graph()->addLink(start->id(), start->outputs()[0].id, math->id(),
+                           math->inputs()[0].id);
 
   QString code = CodeGenerator::generate(&project);
   // Output variable should use the node prefix + "Result"
@@ -212,13 +210,13 @@ TEST_F(CodeGenFixture, DataLinkSubstitutesSourceVariable) {
   print->setCodeTemplate("std::cout << {Value};\n");
 
   // Exec: start -> math -> print
-  project.graph()->addLink(start->id(), start->outputs()[0].id,
-                           math->id(), math->inputs()[0].id);
-  project.graph()->addLink(math->id(), math->outputs()[0].id,
-                           print->id(), print->inputs()[0].id);
+  project.graph()->addLink(start->id(), start->outputs()[0].id, math->id(),
+                           math->inputs()[0].id);
+  project.graph()->addLink(math->id(), math->outputs()[0].id, print->id(),
+                           print->inputs()[0].id);
   // Data: math.Result -> print.Value
-  project.graph()->addLink(math->id(), math->outputs()[1].id,
-                           print->id(), print->inputs()[1].id);
+  project.graph()->addLink(math->id(), math->outputs()[1].id, print->id(),
+                           print->inputs()[1].id);
 
   QString code = CodeGenerator::generate(&project);
   // print should reference the math node's Result variable (with prefix)
@@ -235,11 +233,11 @@ TEST_F(CodeGenFixture, UnlinkedInputWithNoValueReportsError) {
 
   Node *print = project.graph()->addNode("IO.Print", "Print", QPointF(100, 0));
   print->addInput("ExecIn", "Exec");
-  print->addInput("Text", "String", "");  // empty value, no data link
+  print->addInput("Text", "String", ""); // empty value, no data link
   print->setCodeTemplate("print({Text});\n");
 
-  project.graph()->addLink(start->id(), start->outputs()[0].id,
-                           print->id(), print->inputs()[0].id);
+  project.graph()->addLink(start->id(), start->outputs()[0].id, print->id(),
+                           print->inputs()[0].id);
 
   auto result = CodeGenerator::generateWithErrors(&project);
   EXPECT_FALSE(result.errorNodes.isEmpty());
@@ -257,8 +255,8 @@ TEST_F(CodeGenFixture, UnlinkedInputWithValueNoError) {
   print->addInput("Text", "String", "hello");
   print->setCodeTemplate("print({Text});\n");
 
-  project.graph()->addLink(start->id(), start->outputs()[0].id,
-                           print->id(), print->inputs()[0].id);
+  project.graph()->addLink(start->id(), start->outputs()[0].id, print->id(),
+                           print->inputs()[0].id);
 
   auto result = CodeGenerator::generateWithErrors(&project);
   EXPECT_TRUE(result.errorNodes.isEmpty());
@@ -282,12 +280,12 @@ TEST_F(CodeGenFixture, CycleDetectionInExecFlow) {
   c->setCodeTemplate("// print2\n{ExecOut}");
 
   // a -> b -> c -> b (cycle)
-  project.graph()->addLink(a->id(), a->outputs()[0].id,
-                           b->id(), b->inputs()[0].id);
-  project.graph()->addLink(b->id(), b->outputs()[0].id,
-                           c->id(), c->inputs()[0].id);
-  project.graph()->addLink(c->id(), c->outputs()[0].id,
-                           b->id(), b->inputs()[0].id);
+  project.graph()->addLink(a->id(), a->outputs()[0].id, b->id(),
+                           b->inputs()[0].id);
+  project.graph()->addLink(b->id(), b->outputs()[0].id, c->id(),
+                           c->inputs()[0].id);
+  project.graph()->addLink(c->id(), c->outputs()[0].id, b->id(),
+                           b->inputs()[0].id);
 
   QString code = CodeGenerator::generate(&project);
   EXPECT_TRUE(code.contains("cycle detected"));
@@ -296,18 +294,21 @@ TEST_F(CodeGenFixture, CycleDetectionInExecFlow) {
 // ── Branch Indentation ──────────────────────────────────────────────────────
 
 TEST_F(CodeGenFixture, TrueFalseBranchesAreIndented) {
-  Node *ifNode = project.graph()->addNode("Control.If.Start", "If", QPointF(0, 0));
+  Node *ifNode =
+      project.graph()->addNode("Control.If.Start", "If", QPointF(0, 0));
   ifNode->addInput("Condition", "Boolean", "true");
   ifNode->addOutput("True", "Exec");
   ifNode->addOutput("False", "Exec");
   ifNode->setCodeTemplate("if ({Condition}) {\n{True}\n} else {\n{False}\n}\n");
 
-  Node *trueNode = project.graph()->addNode("IO.PrintT", "PrintTrue", QPointF(200, 0));
+  Node *trueNode =
+      project.graph()->addNode("IO.PrintT", "PrintTrue", QPointF(200, 0));
   trueNode->addInput("ExecIn", "Exec");
   trueNode->addInput("Text", "String", "yes");
   trueNode->setCodeTemplate("print({Text});\n");
 
-  Node *falseNode = project.graph()->addNode("IO.PrintF", "PrintFalse", QPointF(200, 100));
+  Node *falseNode =
+      project.graph()->addNode("IO.PrintF", "PrintFalse", QPointF(200, 100));
   falseNode->addInput("ExecIn", "Exec");
   falseNode->addInput("Text", "String", "no");
   falseNode->setCodeTemplate("print({Text});\n");
@@ -324,12 +325,14 @@ TEST_F(CodeGenFixture, TrueFalseBranchesAreIndented) {
 }
 
 TEST_F(CodeGenFixture, LoopBodyIsIndented) {
-  Node *whileNode = project.graph()->addNode("Control.While.Start", "While", QPointF(0, 0));
+  Node *whileNode =
+      project.graph()->addNode("Control.While.Start", "While", QPointF(0, 0));
   whileNode->addInput("Condition", "Boolean", "true");
   whileNode->addOutput("Loop", "Exec");
   whileNode->setCodeTemplate("while ({Condition}) {\n{Loop}\n}\n");
 
-  Node *body = project.graph()->addNode("IO.BodyPrint", "BodyPrint", QPointF(200, 0));
+  Node *body =
+      project.graph()->addNode("IO.BodyPrint", "BodyPrint", QPointF(200, 0));
   body->addInput("ExecIn", "Exec");
   body->addInput("Text", "String", "looping");
   body->setCodeTemplate("print({Text});\n");
@@ -356,8 +359,8 @@ TEST_F(CodeGenFixture, ValueTemplateReplacement) {
   n->addOutput("Value", "Number");
   n->setCodeTemplate("auto {Value} = {VALUE};\n");
 
-  project.graph()->addLink(start->id(), start->outputs()[0].id,
-                           n->id(), n->inputs()[0].id);
+  project.graph()->addLink(start->id(), start->outputs()[0].id, n->id(),
+                           n->inputs()[0].id);
 
   QString code = CodeGenerator::generate(&project);
   EXPECT_TRUE(code.contains("myVariable"));
@@ -458,13 +461,14 @@ TEST_F(CodeGenFixture, DependencyIncludesCpp) {
   start->addOutput("Exec", "Exec");
   start->setCodeTemplate("{Exec}");
 
-  Node *print = project.graph()->addNode("IO.PrintStd", "PrintStd", QPointF(100, 0));
+  Node *print =
+      project.graph()->addNode("IO.PrintStd", "PrintStd", QPointF(100, 0));
   print->addInput("ExecIn", "Exec");
   print->addInput("Text", "String", "hi");
   print->setCodeTemplate("std::cout << {Text};\n");
 
-  project.graph()->addLink(start->id(), start->outputs()[0].id,
-                           print->id(), print->inputs()[0].id);
+  project.graph()->addLink(start->id(), start->outputs()[0].id, print->id(),
+                           print->inputs()[0].id);
 
   QString code = CodeGenerator::generate(&project);
   EXPECT_TRUE(code.contains("#include <iostream>"));
@@ -491,7 +495,8 @@ TEST_F(CodeGenFixture, DependencyImportsPython) {
   project.setLanguage("Python");
   ASSERT_TRUE(project.loadNodeDefinitions(defPath));
 
-  Node *start = project.graph()->addNode("Python.Start", "Start", QPointF(0, 0));
+  Node *start =
+      project.graph()->addNode("Python.Start", "Start", QPointF(0, 0));
   start->addOutput("Exec", "Exec");
   start->setCodeTemplate("{Exec}");
 
@@ -500,8 +505,8 @@ TEST_F(CodeGenFixture, DependencyImportsPython) {
   fetch->addInput("URL", "String", "http://example.com");
   fetch->setCodeTemplate("requests.get({URL})\n");
 
-  project.graph()->addLink(start->id(), start->outputs()[0].id,
-                           fetch->id(), fetch->inputs()[0].id);
+  project.graph()->addLink(start->id(), start->outputs()[0].id, fetch->id(),
+                           fetch->inputs()[0].id);
 
   QString code = CodeGenerator::generate(&project);
   EXPECT_TRUE(code.contains("import requests"));
@@ -536,9 +541,40 @@ TEST_F(CodeGenFixture, DependencyRequiresJavaScript) {
   http->addInput("ExecIn", "Exec");
   http->setCodeTemplate("http.get('/');\n");
 
-  project.graph()->addLink(start->id(), start->outputs()[0].id,
-                           http->id(), http->inputs()[0].id);
+  project.graph()->addLink(start->id(), start->outputs()[0].id, http->id(),
+                           http->inputs()[0].id);
 
   QString code = CodeGenerator::generate(&project);
   EXPECT_TRUE(code.contains("const http = require('http');"));
+}
+
+TEST_F(CodeGenFixture, SwitchingProjectLanguageChangesOutput) {
+  // 1. Start with C++
+  project.setLanguage("C++");
+  Node *start = project.graph()->addNode("C++.Start", "Start", QPointF(0, 0));
+  start->addOutput("Exec", "Exec");
+  start->setCodeTemplate("int main() { {Exec} }");
+
+  QString codeCpp = CodeGenerator::generate(&project);
+  EXPECT_TRUE(codeCpp.contains("int main()"));
+
+  // 2. Switch to Python
+  project.setLanguage("Python");
+  QString codePy = CodeGenerator::generate(&project);
+
+  // Since we didn't clear the graph, the C++ node is still there.
+  // The generator should still find it and generate its C++ template,
+  // even if the project is "Python". This tests that nodes are independent.
+  EXPECT_TRUE(codePy.contains("int main()"));
+
+  // 3. Clear and add Python nodes specifically
+  project.graph()->clear();
+  Node *pyStart =
+      project.graph()->addNode("Python.Start", "Start", QPointF(0, 0));
+  pyStart->addOutput("Exec", "Exec");
+  pyStart->setCodeTemplate("def main():\n    {Exec}");
+
+  QString codePyReal = CodeGenerator::generate(&project);
+  EXPECT_TRUE(codePyReal.contains("def main():"));
+  EXPECT_FALSE(codePyReal.contains("int main()"));
 }
