@@ -73,8 +73,11 @@ GenerationResult CodeGenerator::generateWithErrors(Project *project) {
       return "";
 
     // Skip if already generated to prevent dupes in the AST cache
-    if (generatedNodes.contains(node->id()))
+    if (generatedNodes.contains(node->id())) {
+      if (!isPureDataNode(node))
+        return "/* cycle detected */\n";
       return "";
+    }
 
     generatedNodes.insert(node->id());
 
@@ -82,10 +85,24 @@ GenerationResult CodeGenerator::generateWithErrors(Project *project) {
     QString tpl = node->codeTemplate();
     tpl.replace("{VALUE}", node->value());
 
-    // Pre-replace outputs
+    // Auto-Wrap Logic: If the JSON template is just a floating expression,
+    // we automatically wrap it in a proper variable assignment with semicolons.
+    bool autoWrapped = false;
     for (const auto &out : node->outputs()) {
       if (out.dataType != "Exec") {
-        tpl.replace("{" + out.name + "}", nodePrefixes[node->id()] + out.name);
+        QString outVar = nodePrefixes[node->id()] + out.name;
+        if (tpl.contains("{" + out.name + "}")) {
+          tpl.replace("{" + out.name + "}", outVar);
+        } else if (isPureDataNode(node) && !autoWrapped) {
+          if (project->language() == "C++") {
+            tpl = "auto " + outVar + " = " + tpl + ";";
+          } else if (project->language() == "Python") {
+            tpl = outVar + " = " + tpl;
+          } else if (project->language() == "JavaScript") {
+            tpl = "let " + outVar + " = " + tpl + ";";
+          }
+          autoWrapped = true;
+        }
       }
     }
 
@@ -222,16 +239,27 @@ QString CodeGenerator::generateSingleNode(Node *node) {
     return "";
   QString tpl = node->codeTemplate();
   tpl.replace("{VALUE}", node->value());
+
   for (const auto &in : node->inputs()) {
     if (in.dataType != "Exec")
       tpl.replace("{" + in.name + "}",
                   in.value.isEmpty() ? ("<" + in.name + ">") : in.value);
   }
+
+  bool autoWrapped = false;
   for (const auto &out : node->outputs()) {
-    if (out.dataType == "Exec")
+    if (out.dataType == "Exec") {
       tpl.replace("{" + out.name + "}", "...");
-    else
-      tpl.replace("{" + out.name + "}", out.name);
+    } else {
+      if (tpl.contains("{" + out.name + "}")) {
+        tpl.replace("{" + out.name + "}", out.name);
+      } else if (isPureDataNode(node) && !autoWrapped) {
+        // Formats the tooltip properly for pure data nodes so it doesn't look
+        // like an unassigned expression
+        tpl = out.name + " = " + tpl;
+        autoWrapped = true;
+      }
+    }
   }
   return tpl;
 }
