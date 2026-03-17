@@ -8,7 +8,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Test)
 
 include(FetchContent)
 FetchContent_Declare(json
@@ -106,21 +106,29 @@ if(BUILD_TESTING)
 
     enable_testing()
 
-    add_executable(NodeCodeTests 
-        tests/test_node.cpp 
+    add_executable(NodeCodeTests
+        tests/test_main.cpp
+        tests/test_node.cpp
+        tests/test_node_graph.cpp
+        tests/test_type_system.cpp
+        tests/test_code_generator.cpp
+        tests/test_serialization.cpp
+        tests/test_project.cpp
+        tests/test_compiler_backend.cpp
         ${SOURCES}
     )
-    
+
     target_include_directories(NodeCodeTests PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
     )
-    
+
     target_link_libraries(NodeCodeTests PRIVATE
         Qt6::Core
         Qt6::Gui
         Qt6::Widgets
+        Qt6::Test
         nlohmann_json::nlohmann_json
-        gtest_main
+        GTest::gtest
     )
 
     include(GoogleTest)

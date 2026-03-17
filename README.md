@@ -2,7 +2,7 @@
   <h1>NodeCode Studio</h1>
   <p>A powerful node-based development environment with support for code generation and multi-language execution (C++, JavaScript, Python).</p>
   
-  [![CI Build & Test](https://github.com/pug/NodeCode/actions/workflows/ci.yml/badge.svg)](https://github.com/pug/NodeCode/actions/workflows/ci.yml)
+  [![CI Build & Test](https://github.com/pugplayzYT/NodeCode/actions/workflows/ci.yml/badge.svg)](https://github.com/pugplayzYT/NodeCode/actions/workflows/ci.yml)
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 </div>
