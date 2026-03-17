@@ -372,8 +372,17 @@ void MainWindow::onZoomToFit() { m_scene->zoomToFit(m_view); }
 void MainWindow::onAutoLayout() { m_scene->autoLayout(); }
 
 void MainWindow::onLanguageChanged(const QString &lang) {
+  // Brutal re-entrancy guard to stop the nested event loop from the QMessageBox
+  // from emitting multiple currentTextChanged signals and completely nuking the
+  // stack.
+  static bool isSwitching = false;
+  if (isSwitching)
+    return;
+
   if (lang == m_project->language())
     return;
+
+  isSwitching = true;
 
   auto result = QMessageBox::question(
       this, "Switch Language",
@@ -383,14 +392,26 @@ void MainWindow::onLanguageChanged(const QString &lang) {
 
   if (result == QMessageBox::No) {
     QTimer::singleShot(0, this, &MainWindow::updateSidebarLanguages);
+    isSwitching = false;
     return;
   }
 
   m_undoStack->clear();
+
+  // Explicitly drop selection before the graph clears so QGraphicsScene doesn't
+  // hold stale pointers
+  m_scene->clearSelection();
+
+  // DITCHED m_view->setUpdatesEnabled(false). Disabling updates before gutting
+  // the entire scene is a massive footgun and the exact reason Qt was
+  // segfaulting on you.
+
   m_project->graph()->clear();
   m_project->setLanguage(lang);
   spawnDefaultNodes();
   m_nodeLibrary->refresh();
+
+  isSwitching = false;
 }
 
 void MainWindow::updateTitle() {

@@ -1,6 +1,6 @@
 #include "NodeGraphScene.h"
-#include "core/TypeSystem.h"
 #include "core/CodeGenerator.h"
+#include "core/TypeSystem.h"
 #include <QApplication>
 #include <QClipboard>
 #include <QGraphicsView>
@@ -9,15 +9,20 @@
 #include <QPainter>
 #include <QQueue>
 #include <QSet>
-#include <nlohmann/json.hpp>
 #include <fstream>
+#include <nlohmann/json.hpp>
 
-NodeGraphScene::NodeGraphScene(Project *project, QUndoStack *undoStack, QObject *parent)
+NodeGraphScene::NodeGraphScene(Project *project, QUndoStack *undoStack,
+                               QObject *parent)
     : QGraphicsScene(parent), m_project(project), m_undoStack(undoStack) {
-  connect(project->graph(), &NodeGraph::nodeAdded, this, &NodeGraphScene::onNodeAdded);
-  connect(project->graph(), &NodeGraph::nodeRemoved, this, &NodeGraphScene::onNodeRemoved);
-  connect(project->graph(), &NodeGraph::linkAdded, this, &NodeGraphScene::onLinkAdded);
-  connect(project->graph(), &NodeGraph::linkRemoved, this, &NodeGraphScene::onLinkRemoved);
+  connect(project->graph(), &NodeGraph::nodeAdded, this,
+          &NodeGraphScene::onNodeAdded);
+  connect(project->graph(), &NodeGraph::nodeRemoved, this,
+          &NodeGraphScene::onNodeRemoved);
+  connect(project->graph(), &NodeGraph::linkAdded, this,
+          &NodeGraphScene::onLinkAdded);
+  connect(project->graph(), &NodeGraph::linkRemoved, this,
+          &NodeGraphScene::onLinkRemoved);
 }
 
 void NodeGraphScene::drawBackground(QPainter *painter, const QRectF &rect) {
@@ -111,12 +116,18 @@ void NodeGraphScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
     QStringList parts = def.type.split('.');
     if (parts.size() >= 3) {
       category = parts[1];
-      if (category == "Function") category = "Functions";
-      else if (category == "Variable") category = "Variables";
-      else if (category == "Thread") category = "Threading";
-      else if (category == "Mutex") category = "Threading";
-      else if (category == "Cast") category = "Casting";
-      else if (category == "Fetch") category = "Network";
+      if (category == "Function")
+        category = "Functions";
+      else if (category == "Variable")
+        category = "Variables";
+      else if (category == "Thread")
+        category = "Threading";
+      else if (category == "Mutex")
+        category = "Threading";
+      else if (category == "Cast")
+        category = "Casting";
+      else if (category == "Fetch")
+        category = "Network";
     }
 
     if (!categoryMenus.contains(category)) {
@@ -143,9 +154,8 @@ void NodeGraphScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
   menu.addSeparator();
 
   auto *actComment = menu.addAction("Add Comment");
-  connect(actComment, &QAction::triggered, [this, event]() {
-    addComment(event->scenePos());
-  });
+  connect(actComment, &QAction::triggered,
+          [this, event]() { addComment(event->scenePos()); });
 
   menu.addSeparator();
 
@@ -184,10 +194,12 @@ void NodeGraphScene::keyPressEvent(QKeyEvent *event) {
     paste(QPointF(0, 0));
     event->accept();
   } else if (event->matches(QKeySequence::Undo)) {
-    if (m_undoStack) m_undoStack->undo();
+    if (m_undoStack)
+      m_undoStack->undo();
     event->accept();
   } else if (event->matches(QKeySequence::Redo)) {
-    if (m_undoStack) m_undoStack->redo();
+    if (m_undoStack)
+      m_undoStack->redo();
     event->accept();
   } else {
     QGraphicsScene::keyPressEvent(event);
@@ -196,7 +208,9 @@ void NodeGraphScene::keyPressEvent(QKeyEvent *event) {
 
 void NodeGraphScene::createTempLink(NodePortGraphicsItem *port) {
   m_tempLinkStartPort = port;
-  if (!m_tempLinkStartPort || m_tempLinkStartPort->portType() != PortType::Output) return;
+  if (!m_tempLinkStartPort ||
+      m_tempLinkStartPort->portType() != PortType::Output)
+    return;
   m_tempLink = new QGraphicsPathItem();
   QPen pen(TypeSystem::portColor(port->dataType()), 2.5, Qt::DashLine);
   m_tempLink->setPen(pen);
@@ -207,7 +221,8 @@ void NodeGraphScene::createTempLink(NodePortGraphicsItem *port) {
 }
 
 void NodeGraphScene::updateTempLink(const QPointF &endPos) {
-  if (!m_tempLink) return;
+  if (!m_tempLink)
+    return;
   QPainterPath path(m_tempLinkStart);
   qreal dist = qAbs(endPos.x() - m_tempLinkStart.x()) * 0.5;
   dist = qMax(dist, 50.0);
@@ -226,7 +241,8 @@ void NodeGraphScene::finishTempLink(NodePortGraphicsItem *destPort) {
     if (destPort->portType() == PortType::Input &&
         m_tempLinkStartPort->portType() == PortType::Output) {
       // Validate: type compatibility
-      if (!TypeSystem::areCompatible(m_tempLinkStartPort->dataType(), destPort->dataType())) {
+      if (!TypeSystem::areCompatible(m_tempLinkStartPort->dataType(),
+                                     destPort->dataType())) {
         m_tempLinkStartPort = nullptr;
         return;
       }
@@ -300,7 +316,8 @@ void NodeGraphScene::onLinkRemoved(const QUuid &id) {
 }
 
 void NodeGraphScene::updateLinks() {
-  for (auto *item : m_linkItems) item->updatePath();
+  for (auto *item : m_linkItems)
+    item->updatePath();
 }
 
 void NodeGraphScene::addComment(const QPointF &pos) {
@@ -311,7 +328,8 @@ void NodeGraphScene::addComment(const QPointF &pos) {
 }
 
 void NodeGraphScene::zoomToFit(QGraphicsView *view) {
-  if (!view) return;
+  if (!view)
+    return;
   QRectF bounds = itemsBoundingRect().adjusted(-50, -50, 50, 50);
   if (bounds.isValid())
     view->fitInView(bounds, Qt::KeepAspectRatio);
@@ -333,25 +351,30 @@ void NodeGraphScene::autoLayout() {
           }
         }
       }
-      if (hasExecIn) break;
+      if (hasExecIn)
+        break;
     }
-    if (!hasExecIn) startNodes.append(node);
+    if (!hasExecIn)
+      startNodes.append(node);
   }
 
   // BFS to assign depths
   QQueue<QPair<Node *, int>> queue;
-  for (auto *n : startNodes) queue.enqueue({n, 0});
+  for (auto *n : startNodes)
+    queue.enqueue({n, 0});
 
   while (!queue.isEmpty()) {
     auto [node, d] = queue.dequeue();
-    if (depth.contains(node->id()) && depth[node->id()] >= d) continue;
+    if (depth.contains(node->id()) && depth[node->id()] >= d)
+      continue;
     depth[node->id()] = d;
 
     for (const auto &out : node->outputs()) {
       for (const auto *link : m_project->graph()->links()) {
         if (link->sourceNodeId == node->id() && link->sourcePortId == out.id) {
           Node *next = m_project->graph()->getNode(link->targetNodeId);
-          if (next) queue.enqueue({next, d + 1});
+          if (next)
+            queue.enqueue({next, d + 1});
         }
       }
     }
@@ -408,17 +431,24 @@ void NodeGraphScene::copySelected() {
       Node *srcNode = m_project->graph()->getNode(link->sourceNodeId);
       Node *tgtNode = m_project->graph()->getNode(link->targetNodeId);
       QString srcPortName, tgtPortName;
-      if (srcNode) for (const auto &p : srcNode->outputs())
-        if (p.id == link->sourcePortId) { srcPortName = p.name; break; }
-      if (tgtNode) for (const auto &p : tgtNode->inputs())
-        if (p.id == link->targetPortId) { tgtPortName = p.name; break; }
+      if (srcNode)
+        for (const auto &p : srcNode->outputs())
+          if (p.id == link->sourcePortId) {
+            srcPortName = p.name;
+            break;
+          }
+      if (tgtNode)
+        for (const auto &p : tgtNode->inputs())
+          if (p.id == link->targetPortId) {
+            tgtPortName = p.name;
+            break;
+          }
 
-      j["links"].push_back({
-        {"sourceNode", link->sourceNodeId.toString().toStdString()},
-        {"sourcePort", srcPortName.toStdString()},
-        {"targetNode", link->targetNodeId.toString().toStdString()},
-        {"targetPort", tgtPortName.toStdString()}
-      });
+      j["links"].push_back(
+          {{"sourceNode", link->sourceNodeId.toString().toStdString()},
+           {"sourcePort", srcPortName.toStdString()},
+           {"targetNode", link->targetNodeId.toString().toStdString()},
+           {"targetPort", tgtPortName.toStdString()}});
     }
   }
 
@@ -428,7 +458,8 @@ void NodeGraphScene::copySelected() {
 
 void NodeGraphScene::paste(const QPointF &offset) {
   QString data = QApplication::clipboard()->text();
-  if (data.isEmpty()) return;
+  if (data.isEmpty())
+    return;
 
   try {
     nlohmann::json j = nlohmann::json::parse(data.toStdString());
@@ -468,18 +499,27 @@ void NodeGraphScene::paste(const QPointF &offset) {
 
       Node *srcNode = idMap.value(srcId);
       Node *tgtNode = idMap.value(tgtId);
-      if (!srcNode || !tgtNode) continue;
+      if (!srcNode || !tgtNode)
+        continue;
 
       QUuid srcPortId, tgtPortId;
       for (const auto &p : srcNode->outputs())
-        if (p.name == srcPort) { srcPortId = p.id; break; }
+        if (p.name == srcPort) {
+          srcPortId = p.id;
+          break;
+        }
       for (const auto &p : tgtNode->inputs())
-        if (p.name == tgtPort) { tgtPortId = p.id; break; }
+        if (p.name == tgtPort) {
+          tgtPortId = p.id;
+          break;
+        }
 
       if (!srcPortId.isNull() && !tgtPortId.isNull())
-        m_project->graph()->addLink(srcNode->id(), srcPortId, tgtNode->id(), tgtPortId);
+        m_project->graph()->addLink(srcNode->id(), srcPortId, tgtNode->id(),
+                                    tgtPortId);
     }
-  } catch (...) {}
+  } catch (...) {
+  }
 }
 
 void NodeGraphScene::highlightErrors(const QList<QUuid> &errorNodes) {

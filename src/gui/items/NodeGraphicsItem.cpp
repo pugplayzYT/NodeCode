@@ -1,9 +1,8 @@
 #include "NodeGraphicsItem.h"
-#include "gui/scene/NodeGraphScene.h"
-#include "core/TypeSystem.h"
 #include "core/CodeGenerator.h"
+#include "core/TypeSystem.h"
+#include "gui/scene/NodeGraphScene.h"
 #include <QFontMetrics>
-#include <QGraphicsDropShadowEffect>
 #include <QGraphicsScene>
 #include <QInputDialog>
 #include <QPainter>
@@ -25,18 +24,15 @@ NodeGraphicsItem::NodeGraphicsItem(Node *node)
   setAcceptHoverEvents(true);
   setToolTip(CodeGenerator::generateSingleNode(node));
 
+  // Build the ports, completely ditching the drop shadow effect
+  // because proxy widgets + graphics effects before show() = Linux segfaults.
   rebuildPorts();
-
-  auto *shadow = new QGraphicsDropShadowEffect();
-  shadow->setBlurRadius(12);
-  shadow->setOffset(0, 4);
-  shadow->setColor(QColor(0, 0, 0, 120));
-  setGraphicsEffect(shadow);
 }
 
 void NodeGraphicsItem::rebuildPorts() {
   for (auto *p : m_ports) {
-    if (p->scene()) p->scene()->removeItem(p);
+    if (p->scene())
+      p->scene()->removeItem(p);
     delete p;
   }
   m_ports.clear();
@@ -63,13 +59,15 @@ void NodeGraphicsItem::rebuildPorts() {
         auto *editor = new QLineEdit();
         editor->setFixedWidth(kInlineEditorWidth);
         editor->setStyleSheet(
-            "background-color: #1a1a1d; color: #e0e0e0; border: 1px solid #3b3b4a; "
+            "background-color: #1a1a1d; color: #e0e0e0; border: 1px solid "
+            "#3b3b4a; "
             "border-radius: 3px; font-size: 10px; padding: 1px;");
         editor->setText(in.value);
         QObject::connect(editor, &QLineEdit::textChanged,
                          [this, id = in.id](const QString &text) {
                            m_node->setPortValue(id, text);
-                           if (auto *s = dynamic_cast<NodeGraphScene *>(scene()))
+                           if (auto *s =
+                                   dynamic_cast<NodeGraphScene *>(scene()))
                              emit s->getProject()->graph()->graphChanged();
                          });
         auto *proxy = new QGraphicsProxyWidget(this);
@@ -84,7 +82,8 @@ void NodeGraphicsItem::rebuildPorts() {
       bool connected = false;
       if (auto *s = dynamic_cast<NodeGraphScene *>(scene())) {
         for (auto *link : s->getProject()->graph()->links()) {
-          if (link->targetNodeId == m_node->id() && link->targetPortId == in.id) {
+          if (link->targetNodeId == m_node->id() &&
+              link->targetPortId == in.id) {
             connected = true;
             break;
           }
@@ -143,7 +142,8 @@ QRectF NodeGraphicsItem::boundingRect() const {
 
   int maxPorts = qMax(m_node->inputs().size(), m_node->outputs().size());
   int h = qMax(50, kPortStartY + maxPorts * kPortSpacing + 10);
-  if (m_node->hasValue()) h += 32;
+  if (m_node->hasValue())
+    h += 32;
 
   QFont titleFont;
   titleFont.setBold(true);
@@ -158,7 +158,8 @@ QRectF NodeGraphicsItem::boundingRect() const {
   int leftW = 0;
   for (const auto &in : m_node->inputs()) {
     int pw = kPortTextX + portFm.horizontalAdvance(in.label()) + kEditorGap;
-    if (in.allowInline) pw += kInlineEditorWidth + kEditorGap;
+    if (in.allowInline)
+      pw += kInlineEditorWidth + kEditorGap;
     leftW = qMax(leftW, pw);
   }
   int rightW = 0;
@@ -228,10 +229,11 @@ void NodeGraphicsItem::paint(QPainter *painter,
   f.setPointSize(9);
   painter->setFont(f);
   painter->drawText(QRectF(m_node->hasBreakpoint() ? 18 : 0, 0,
-                            boundingRect().width() - 20, kHeaderH),
+                           boundingRect().width() - 20, kHeaderH),
                     Qt::AlignCenter, m_node->name());
 
-  if (m_node->collapsed()) return;
+  if (m_node->collapsed())
+    return;
 
   // Port labels
   f.setBold(false);
@@ -284,7 +286,8 @@ void NodeGraphicsItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 
 void NodeGraphicsItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) {
   // Double-click on collapse button area
-  if (event->pos().x() > boundingRect().width() - 20 && event->pos().y() < kHeaderH) {
+  if (event->pos().x() > boundingRect().width() - 20 &&
+      event->pos().y() < kHeaderH) {
     m_node->setCollapsed(!m_node->collapsed());
     rebuildPorts();
     if (auto *s = dynamic_cast<NodeGraphScene *>(scene()))
@@ -295,8 +298,9 @@ void NodeGraphicsItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) {
   // Double-click on header to rename
   if (event->pos().y() < kHeaderH) {
     bool ok;
-    QString newName = QInputDialog::getText(nullptr, "Rename Node", "Node name:",
-                                            QLineEdit::Normal, m_node->name(), &ok);
+    QString newName = QInputDialog::getText(nullptr, "Rename Node",
+                                            "Node name:", QLineEdit::Normal,
+                                            m_node->name(), &ok);
     if (ok && !newName.isEmpty()) {
       m_node->setName(newName);
       setToolTip(CodeGenerator::generateSingleNode(m_node));

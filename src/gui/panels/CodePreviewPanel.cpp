@@ -9,18 +9,18 @@ CodePreviewPanel::CodePreviewPanel(Project *project, QWidget *parent)
   m_textEdit->setFont(QFont("monospace", 11));
   setWidget(m_textEdit);
 
-  m_highlighter = new SyntaxHighlighter(project->language(), m_textEdit->document());
+  m_highlighter =
+      new SyntaxHighlighter(project->language(), m_textEdit->document());
 
   m_debounce.setSingleShot(true);
   m_debounce.setInterval(300);
   connect(&m_debounce, &QTimer::timeout, this, &CodePreviewPanel::refresh);
 
-  connect(project->graph(), &NodeGraph::graphChanged, this, &CodePreviewPanel::scheduleRefresh);
+  connect(project->graph(), &NodeGraph::graphChanged, this,
+          &CodePreviewPanel::scheduleRefresh);
 }
 
-void CodePreviewPanel::scheduleRefresh() {
-  m_debounce.start();
-}
+void CodePreviewPanel::scheduleRefresh() { m_debounce.start(); }
 
 void CodePreviewPanel::refresh() {
   m_highlighter->setLanguage(m_project->language());

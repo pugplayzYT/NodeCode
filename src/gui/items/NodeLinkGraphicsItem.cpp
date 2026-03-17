@@ -1,10 +1,11 @@
 #include "NodeLinkGraphicsItem.h"
 #include "NodeGraphicsItem.h"
-#include "gui/scene/NodeGraphScene.h"
-#include "core/TypeSystem.h"
 #include "core/Node.h"
+#include "core/TypeSystem.h"
+#include "gui/scene/NodeGraphScene.h"
 
-NodeLinkGraphicsItem::NodeLinkGraphicsItem(NodeLink *link, NodeGraphScene *scene)
+NodeLinkGraphicsItem::NodeLinkGraphicsItem(NodeLink *link,
+                                           NodeGraphScene *scene)
     : m_link(link), m_scene(scene) {
   setZValue(-1);
 
@@ -44,10 +45,12 @@ NodeLinkGraphicsItem::NodeLinkGraphicsItem(NodeLink *link, NodeGraphScene *scene
 }
 
 void NodeLinkGraphicsItem::updatePath() {
-  if (!m_link || !m_scene) return;
+  if (!m_link || !m_scene)
+    return;
   auto *srcNode = m_scene->getNodeItem(m_link->sourceNodeId);
   auto *tgtNode = m_scene->getNodeItem(m_link->targetNodeId);
-  if (!srcNode || !tgtNode) return;
+  if (!srcNode || !tgtNode)
+    return;
 
   QPointF p1 = srcNode->getPortPosition(m_link->sourcePortId);
   QPointF p2 = tgtNode->getPortPosition(m_link->targetPortId);
