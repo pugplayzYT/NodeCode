@@ -3181,6 +3181,26 @@
       ],
       "outputs": [],
       "code": "// End"
+    },
+    {
+      "type": "JavaScript.ConcatExample",
+      "name": "var = the text is ur name",
+      "language": "JavaScript",
+      "inputs": [
+        {
+          "name": "ur name",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "var",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "(\"the text is \" + {ur name})"
     }
   ]
 }

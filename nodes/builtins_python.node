@@ -3186,6 +3186,26 @@
       ],
       "outputs": [],
       "code": "# End"
+    },
+    {
+      "type": "Python.ConcatExample",
+      "name": "var = the text is ur name",
+      "language": "Python",
+      "inputs": [
+        {
+          "name": "ur name",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "var",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "(\"the text is \" + str({ur name}))"
     }
   ]
 }

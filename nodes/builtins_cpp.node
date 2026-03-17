@@ -2513,6 +2513,29 @@
       ],
       "outputs": [],
       "code": "// End"
+    },
+    {
+      "type": "C++.ConcatExample",
+      "name": "var = the text is ur name",
+      "language": "C++",
+      "requires": [
+        "<string>"
+      ],
+      "inputs": [
+        {
+          "name": "ur name",
+          "type": "String",
+          "allowInline": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "var",
+          "type": "String",
+          "allowInline": false
+        }
+      ],
+      "code": "(std::string(\"the text is \") + std::string({ur name}))"
     }
   ]
 }
