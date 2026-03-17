@@ -47,6 +47,10 @@ public:
   bool hasBreakpoint() const { return m_breakpoint; }
   void setBreakpoint(bool b) { m_breakpoint = b; }
 
+  // Dead code tracking
+  bool isDeadCode() const { return m_isDeadCode; }
+  void setDeadCode(bool dead) { m_isDeadCode = dead; }
+
 private:
   QUuid m_id;
   QString m_type;
@@ -60,4 +64,5 @@ private:
   QString m_language;
   bool m_collapsed = false;
   bool m_breakpoint = false;
+  bool m_isDeadCode = false;
 };

@@ -24,8 +24,9 @@ NodeGraphicsItem::NodeGraphicsItem(Node *node)
   setAcceptHoverEvents(true);
   setToolTip(CodeGenerator::generateSingleNode(node));
 
-  // Build the ports, completely ditching the drop shadow effect
-  // because proxy widgets + graphics effects before show() = Linux segfaults.
+  // Initialize UI to dim if the node starts out dead/disconnected
+  setOpacity(node->isDeadCode() ? 0.35 : 1.0);
+
   rebuildPorts();
 }
 
@@ -37,7 +38,6 @@ void NodeGraphicsItem::rebuildPorts() {
   }
   m_ports.clear();
 
-  // If collapsed, skip port creation
   if (m_node->collapsed()) {
     prepareGeometryChange();
     update();
@@ -184,7 +184,6 @@ void NodeGraphicsItem::paint(QPainter *painter,
   path.addRoundedRect(boundingRect(), 6, 6);
   painter->fillPath(path, QColor(43, 43, 48, 240));
 
-  // Border: error=red, selected=blue, normal=dark
   if (m_hasError) {
     painter->setPen(QPen(QColor(244, 67, 54), 2.0));
   } else if (isSelected()) {
@@ -194,7 +193,6 @@ void NodeGraphicsItem::paint(QPainter *painter,
   }
   painter->drawPath(path);
 
-  // Header
   QPainterPath headerPath;
   headerPath.addRoundedRect(0, 0, boundingRect().width(), kHeaderH, 6, 6);
   QPainterPath bottomSquare;
@@ -206,14 +204,12 @@ void NodeGraphicsItem::paint(QPainter *painter,
   bg.setColorAt(1, QColor(29, 58, 115));
   painter->fillPath(headerPath, bg);
 
-  // Breakpoint indicator
   if (m_node->hasBreakpoint()) {
     painter->setBrush(QColor(244, 67, 54));
     painter->setPen(Qt::NoPen);
     painter->drawEllipse(QPointF(10, kHeaderH / 2.0), 5, 5);
   }
 
-  // Collapse indicator
   painter->setPen(QColor(180, 180, 180));
   QFont sf = painter->font();
   sf.setPointSize(8);
@@ -222,7 +218,6 @@ void NodeGraphicsItem::paint(QPainter *painter,
   painter->drawText(QRectF(boundingRect().width() - 18, 2, 16, kHeaderH - 4),
                     Qt::AlignCenter, collapseIcon);
 
-  // Title
   painter->setPen(Qt::white);
   QFont f = painter->font();
   f.setBold(true);
@@ -235,7 +230,6 @@ void NodeGraphicsItem::paint(QPainter *painter,
   if (m_node->collapsed())
     return;
 
-  // Port labels
   f.setBold(false);
   f.setPointSize(8);
   painter->setFont(f);
@@ -267,7 +261,6 @@ QVariant NodeGraphicsItem::itemChange(GraphicsItemChange change,
                                       const QVariant &value) {
   if (change == ItemPositionChange && scene()) {
     QPointF newPos = value.toPointF();
-    // Snap to grid
     newPos.setX(qRound(newPos.x() / kGridSize) * kGridSize);
     newPos.setY(qRound(newPos.y() / kGridSize) * kGridSize);
     m_node->setPosition(newPos);
@@ -285,7 +278,6 @@ void NodeGraphicsItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
 }
 
 void NodeGraphicsItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) {
-  // Double-click on collapse button area
   if (event->pos().x() > boundingRect().width() - 20 &&
       event->pos().y() < kHeaderH) {
     m_node->setCollapsed(!m_node->collapsed());
@@ -295,7 +287,6 @@ void NodeGraphicsItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) {
     event->accept();
     return;
   }
-  // Double-click on header to rename
   if (event->pos().y() < kHeaderH) {
     bool ok;
     QString newName = QInputDialog::getText(nullptr, "Rename Node",

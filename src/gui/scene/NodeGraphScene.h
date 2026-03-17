@@ -1,8 +1,8 @@
 #pragma once
 #include "core/Project.h"
+#include "gui/items/NodeCommentItem.h"
 #include "gui/items/NodeGraphicsItem.h"
 #include "gui/items/NodeLinkGraphicsItem.h"
-#include "gui/items/NodeCommentItem.h"
 #include <QGraphicsScene>
 #include <QUndoStack>
 
@@ -11,8 +11,11 @@ enum class ToolMode { Select, Knife };
 class NodeGraphScene : public QGraphicsScene {
   Q_OBJECT
 public:
-  NodeGraphScene(Project *project, QUndoStack *undoStack, QObject *parent = nullptr);
-  NodeGraphicsItem *getNodeItem(const QUuid &id) const { return m_nodeItems.value(id, nullptr); }
+  NodeGraphScene(Project *project, QUndoStack *undoStack,
+                 QObject *parent = nullptr);
+  NodeGraphicsItem *getNodeItem(const QUuid &id) const {
+    return m_nodeItems.value(id, nullptr);
+  }
   Project *getProject() const { return m_project; }
   QUndoStack *undoStack() const { return m_undoStack; }
 

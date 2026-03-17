@@ -3,6 +3,23 @@
 #include <QSet>
 #include <functional>
 
+namespace {
+// Helper to determine if a node is strictly for data (no execution flow)
+bool isPureDataNode(Node *node) {
+  if (!node)
+    return false;
+  for (const auto &pin : node->inputs()) {
+    if (pin.dataType == "Exec")
+      return false;
+  }
+  for (const auto &pin : node->outputs()) {
+    if (pin.dataType == "Exec")
+      return false;
+  }
+  return true;
+}
+} // namespace
+
 QString CodeGenerator::generate(Project *project) {
   auto result = generateWithErrors(project);
   return result.code;
@@ -54,19 +71,25 @@ GenerationResult CodeGenerator::generateWithErrors(Project *project) {
   std::function<QString(Node *)> generateNodeCode = [&](Node *node) -> QString {
     if (!node)
       return "";
+
+    // Skip if already generated to prevent dupes in the AST cache
     if (generatedNodes.contains(node->id()))
-      return "/* cycle detected */\n";
+      return "";
+
     generatedNodes.insert(node->id());
 
+    QString dataDependenciesCode = "";
     QString tpl = node->codeTemplate();
     tpl.replace("{VALUE}", node->value());
 
+    // Pre-replace outputs
     for (const auto &out : node->outputs()) {
       if (out.dataType != "Exec") {
         tpl.replace("{" + out.name + "}", nodePrefixes[node->id()] + out.name);
       }
     }
 
+    // Process inputs and recursively pull pure data dependencies
     for (const auto &in : node->inputs()) {
       if (in.dataType == "Exec")
         continue;
@@ -76,6 +99,19 @@ GenerationResult CodeGenerator::generateWithErrors(Project *project) {
         if (link->targetNodeId == node->id() && link->targetPortId == in.id) {
           Node *src = project->graph()->getNode(link->sourceNodeId);
           if (src) {
+
+            // If the source is a pure data node, eagerly evaluate it BEFORE
+            // this node
+            if (isPureDataNode(src) && !generatedNodes.contains(src->id())) {
+              QString srcCode = generateNodeCode(src);
+              if (!srcCode.isEmpty()) {
+                if (!dataDependenciesCode.isEmpty() &&
+                    !dataDependenciesCode.endsWith("\n"))
+                  dataDependenciesCode += "\n";
+                dataDependenciesCode += srcCode;
+              }
+            }
+
             QString outName;
             for (const auto &out : src->outputs()) {
               if (out.id == link->sourcePortId) {
@@ -105,12 +141,14 @@ GenerationResult CodeGenerator::generateWithErrors(Project *project) {
           }
         } else {
           result.errorNodes.append(node->id());
-          result.errors.append("Node '" + node->name() + "' has unlinked input '" + in.name + "'");
+          result.errors.append("Node '" + node->name() +
+                               "' has unlinked input '" + in.name + "'");
         }
       }
       tpl.replace("{" + in.name + "}", connectedVar);
     }
 
+    // Process Exec outputs for flow logic
     for (const auto &out : node->outputs()) {
       if (out.dataType == "Exec") {
         QString flowCode = "";
@@ -125,7 +163,8 @@ GenerationResult CodeGenerator::generateWithErrors(Project *project) {
           }
         }
         if (out.name == "True" || out.name == "False" || out.name == "Loop" ||
-            out.name == "Callback" || out.name == "Body" || out.name == "Catch") {
+            out.name == "Callback" || out.name == "Body" ||
+            out.name == "Catch") {
           if (!flowCode.isEmpty()) {
             QStringList lines = flowCode.split("\n");
             for (int i = 0; i < lines.size(); ++i) {
@@ -139,7 +178,12 @@ GenerationResult CodeGenerator::generateWithErrors(Project *project) {
       }
     }
 
-    return tpl;
+    QString finalNodeCode = dataDependenciesCode;
+    if (!finalNodeCode.isEmpty() && !finalNodeCode.endsWith("\n")) {
+      finalNodeCode += "\n";
+    }
+    finalNodeCode += tpl;
+    return finalNodeCode;
   };
 
   for (auto *node : project->graph()->nodes()) {
@@ -153,8 +197,6 @@ GenerationResult CodeGenerator::generateWithErrors(Project *project) {
           }
         }
       }
-      if (hasExecIn)
-        break;
     }
 
     bool hasExecOut = false;
@@ -162,9 +204,12 @@ GenerationResult CodeGenerator::generateWithErrors(Project *project) {
       if (out.dataType == "Exec")
         hasExecOut = true;
 
+    // Only start execution chains from root flow nodes
     if (node->type().endsWith(".Start") || (!hasExecIn && hasExecOut)) {
-      generatedNodes.clear();
-      finalCode += generateNodeCode(node) + "\n";
+      QString block = generateNodeCode(node);
+      if (!block.isEmpty()) {
+        finalCode += block + "\n";
+      }
     }
   }
 
@@ -173,12 +218,14 @@ GenerationResult CodeGenerator::generateWithErrors(Project *project) {
 }
 
 QString CodeGenerator::generateSingleNode(Node *node) {
-  if (!node) return "";
+  if (!node)
+    return "";
   QString tpl = node->codeTemplate();
   tpl.replace("{VALUE}", node->value());
   for (const auto &in : node->inputs()) {
     if (in.dataType != "Exec")
-      tpl.replace("{" + in.name + "}", in.value.isEmpty() ? ("<" + in.name + ">") : in.value);
+      tpl.replace("{" + in.name + "}",
+                  in.value.isEmpty() ? ("<" + in.name + ">") : in.value);
   }
   for (const auto &out : node->outputs()) {
     if (out.dataType == "Exec")

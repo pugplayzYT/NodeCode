@@ -44,7 +44,6 @@ void NodeGraphScene::drawBackground(QPainter *painter, const QRectF &rect) {
     lines.append(QLineF(rect.left(), y, rect.right(), y));
   painter->drawLines(lines.data(), lines.size());
 
-  // Major grid lines every 5
   QPen majorPen(QColor(45, 45, 52), 1.5);
   painter->setPen(majorPen);
   QVector<QLineF> majorLines;
@@ -103,15 +102,12 @@ void NodeGraphScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
 void NodeGraphScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
   QMenu menu;
   auto nodeDefs = m_project->nodeDefinitions();
-
-  // Build categorized submenus from the type hierarchy
   QMap<QString, QMenu *> categoryMenus;
 
   for (const auto &def : nodeDefs) {
     if (!def.language.isEmpty() && def.language != m_project->language())
       continue;
 
-    // Extract category from type: "Language.Category.Name" -> "Category"
     QString category = "General";
     QStringList parts = def.type.split('.');
     if (parts.size() >= 3) {
@@ -176,6 +172,14 @@ void NodeGraphScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 }
 
 void NodeGraphScene::keyPressEvent(QKeyEvent *event) {
+  // Guard check: If a proxy widget (like QLineEdit) has focus, let it handle
+  // the event natively. Otherwise, the scene eats the backspace and starves the
+  // text box.
+  if (focusItem() && focusItem()->isWidget()) {
+    QGraphicsScene::keyPressEvent(event);
+    return;
+  }
+
   if (event->key() == Qt::Key_Delete || event->key() == Qt::Key_Backspace) {
     for (auto *item : selectedItems()) {
       if (auto *p = dynamic_cast<NodeGraphicsItem *>(item))
@@ -240,18 +244,16 @@ void NodeGraphScene::finishTempLink(NodePortGraphicsItem *destPort) {
   if (destPort && m_tempLinkStartPort) {
     if (destPort->portType() == PortType::Input &&
         m_tempLinkStartPort->portType() == PortType::Output) {
-      // Validate: type compatibility
       if (!TypeSystem::areCompatible(m_tempLinkStartPort->dataType(),
                                      destPort->dataType())) {
         m_tempLinkStartPort = nullptr;
         return;
       }
-      // Validate: not same node
       if (m_tempLinkStartPort->nodeId() == destPort->nodeId()) {
         m_tempLinkStartPort = nullptr;
         return;
       }
-      // Exec outputs allow only one outgoing wire — remove existing
+
       if (m_tempLinkStartPort->dataType() == "Exec") {
         QList<QUuid> toRemove;
         for (const auto *link : m_project->graph()->links()) {
@@ -262,7 +264,7 @@ void NodeGraphScene::finishTempLink(NodePortGraphicsItem *destPort) {
         for (const auto &id : toRemove)
           m_project->graph()->removeLink(id);
       }
-      // Input ports also allow only one incoming wire — remove existing
+
       {
         QList<QUuid> toRemove;
         for (const auto *link : m_project->graph()->links()) {
@@ -283,6 +285,7 @@ void NodeGraphScene::finishTempLink(NodePortGraphicsItem *destPort) {
 
 void NodeGraphScene::onNodeAdded(Node *node) {
   auto *item = new NodeGraphicsItem(node);
+  item->setOpacity(node->isDeadCode() ? 0.35 : 1.0);
   addItem(item);
   m_nodeItems[node->id()] = item;
 }
@@ -318,6 +321,90 @@ void NodeGraphScene::onLinkRemoved(const QUuid &id) {
 void NodeGraphScene::updateLinks() {
   for (auto *item : m_linkItems)
     item->updatePath();
+
+  // --- Real-Time Dead Code Analysis (Reachability Graph) ---
+  QSet<QUuid> liveNodes;
+  QQueue<QUuid> execQueue;
+
+  for (auto *node : m_project->graph()->nodes()) {
+    bool hasExecIn = false;
+    bool hasExecOut = false;
+    for (const auto &in : node->inputs()) {
+      if (in.dataType == "Exec") {
+        for (const auto *link : m_project->graph()->links()) {
+          if (link->targetNodeId == node->id() && link->targetPortId == in.id) {
+            hasExecIn = true;
+            break;
+          }
+        }
+      }
+    }
+    for (const auto &out : node->outputs()) {
+      if (out.dataType == "Exec")
+        hasExecOut = true;
+    }
+
+    if (node->type().endsWith(".Start") || (!hasExecIn && hasExecOut)) {
+      execQueue.enqueue(node->id());
+      liveNodes.insert(node->id());
+    }
+  }
+
+  while (!execQueue.isEmpty()) {
+    QUuid currentId = execQueue.dequeue();
+    Node *current = m_project->graph()->getNode(currentId);
+    if (!current)
+      continue;
+
+    for (const auto &out : current->outputs()) {
+      if (out.dataType == "Exec") {
+        for (const auto *link : m_project->graph()->links()) {
+          if (link->sourceNodeId == currentId && link->sourcePortId == out.id) {
+            if (!liveNodes.contains(link->targetNodeId)) {
+              liveNodes.insert(link->targetNodeId);
+              execQueue.enqueue(link->targetNodeId);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  QQueue<QUuid> dataQueue;
+  for (const QUuid &id : liveNodes) {
+    dataQueue.enqueue(id);
+  }
+
+  while (!dataQueue.isEmpty()) {
+    QUuid currentId = dataQueue.dequeue();
+    Node *current = m_project->graph()->getNode(currentId);
+    if (!current)
+      continue;
+
+    for (const auto &in : current->inputs()) {
+      if (in.dataType != "Exec") {
+        for (const auto *link : m_project->graph()->links()) {
+          if (link->targetNodeId == currentId && link->targetPortId == in.id) {
+            if (!liveNodes.contains(link->sourceNodeId)) {
+              liveNodes.insert(link->sourceNodeId);
+              dataQueue.enqueue(link->sourceNodeId);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  for (auto *node : m_project->graph()->nodes()) {
+    bool isDead = !liveNodes.contains(node->id());
+    if (node->isDeadCode() != isDead) {
+      node->setDeadCode(isDead);
+      if (auto *item = m_nodeItems.value(node->id())) {
+        item->setOpacity(isDead ? 0.35 : 1.0);
+        item->update();
+      }
+    }
+  }
 }
 
 void NodeGraphScene::addComment(const QPointF &pos) {
@@ -336,7 +423,6 @@ void NodeGraphScene::zoomToFit(QGraphicsView *view) {
 }
 
 void NodeGraphScene::autoLayout() {
-  // Simple left-to-right layout based on execution flow
   QMap<QUuid, int> depth;
   QList<Node *> startNodes;
 
@@ -358,7 +444,6 @@ void NodeGraphScene::autoLayout() {
       startNodes.append(node);
   }
 
-  // BFS to assign depths
   QQueue<QPair<Node *, int>> queue;
   for (auto *n : startNodes)
     queue.enqueue({n, 0});
@@ -380,7 +465,6 @@ void NodeGraphScene::autoLayout() {
     }
   }
 
-  // Group by depth
   QMap<int, QList<Node *>> layers;
   for (auto it = depth.begin(); it != depth.end(); ++it)
     layers[it.value()].append(m_project->graph()->getNode(it.key()));
