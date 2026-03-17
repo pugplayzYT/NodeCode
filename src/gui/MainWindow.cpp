@@ -247,8 +247,10 @@ void MainWindow::setupConnections() {
 void MainWindow::onNewProject() {
   m_project->graph()->clear();
   m_project->setCurrentFilePath("");
+  m_project->setLanguage("C++");
   spawnDefaultNodes();
   updateTitle();
+  updateSidebarLanguages();
 }
 
 void MainWindow::spawnDefaultNodes() {
@@ -291,8 +293,10 @@ void MainWindow::onOpenProject() {
     m_project->setCurrentFilePath(filename);
     m_project->addRecentFile(filename);
     updateTitle();
+    updateSidebarLanguages();
   } else {
     QMessageBox::warning(this, "Error", "Failed to load project.");
+    spawnDefaultNodes();
   }
 }
 
@@ -366,7 +370,23 @@ void MainWindow::onZoomToFit() { m_scene->zoomToFit(m_view); }
 void MainWindow::onAutoLayout() { m_scene->autoLayout(); }
 
 void MainWindow::onLanguageChanged(const QString &lang) {
+  if (lang == m_project->language())
+    return;
+
+  auto result = QMessageBox::question(
+      this, "Switch Language",
+      "Are you sure you want to switch the language?\n\nChanging the language "
+      "will overwrite and clear all your current nodes.",
+      QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+
+  if (result == QMessageBox::No) {
+    updateSidebarLanguages();
+    return;
+  }
+
+  m_project->graph()->clear();
   m_project->setLanguage(lang);
+  spawnDefaultNodes();
   m_nodeLibrary->refresh();
 }
 
@@ -380,6 +400,7 @@ void MainWindow::updateTitle() {
 }
 
 void MainWindow::updateSidebarLanguages() {
+  QSignalBlocker blocker(m_languageList);
   for (int i = 0; i < m_languageList->count(); ++i) {
     if (m_languageList->item(i)->text() == m_project->language()) {
       m_languageList->setCurrentRow(i);
@@ -400,5 +421,8 @@ void MainWindow::openRecentFile(const QString &path) {
   if (Serialization::loadJson(m_project, path)) {
     m_project->setCurrentFilePath(path);
     updateTitle();
+    updateSidebarLanguages();
+  } else {
+    spawnDefaultNodes();
   }
 }
