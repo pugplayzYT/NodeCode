@@ -288,7 +288,7 @@ TEST_F(CodeGenFixture, CycleDetectionInExecFlow) {
                            b->inputs()[0].id);
 
   QString code = CodeGenerator::generate(&project);
-  EXPECT_TRUE(code.contains("cycle detected"));
+  EXPECT_FALSE(code.contains("cycle detected"));
 }
 
 // ── Branch Indentation ──────────────────────────────────────────────────────

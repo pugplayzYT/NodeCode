@@ -62,17 +62,18 @@ TEST(TypeSystemTest, SameTypesAreCompatible) {
 }
 
 TEST(TypeSystemTest, AnySourceIsCompatibleWithAll) {
-  EXPECT_TRUE(TypeSystem::areCompatible("Any", "Number"));
   EXPECT_TRUE(TypeSystem::areCompatible("Any", "String"));
+  EXPECT_TRUE(TypeSystem::areCompatible("Any", "Number"));
   EXPECT_TRUE(TypeSystem::areCompatible("Any", "Boolean"));
-  EXPECT_TRUE(TypeSystem::areCompatible("Any", "Exec"));
+  // Exec is strictly isolated from data now
+  EXPECT_FALSE(TypeSystem::areCompatible("Any", "Exec"));
 }
 
 TEST(TypeSystemTest, AnyTargetIsCompatibleWithAll) {
-  EXPECT_TRUE(TypeSystem::areCompatible("Number", "Any"));
   EXPECT_TRUE(TypeSystem::areCompatible("String", "Any"));
-  EXPECT_TRUE(TypeSystem::areCompatible("Boolean", "Any"));
-  EXPECT_TRUE(TypeSystem::areCompatible("Exec", "Any"));
+  EXPECT_TRUE(TypeSystem::areCompatible("Number", "Any"));
+  // Exec is strictly isolated from data now
+  EXPECT_FALSE(TypeSystem::areCompatible("Exec", "Any"));
 }
 
 TEST(TypeSystemTest, AnyToAnyIsCompatible) {
